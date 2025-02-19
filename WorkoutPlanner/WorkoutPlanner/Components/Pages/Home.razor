@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+@if (Exercises.Count <= 0 )
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<Virtualize Items="@Exercises">
+   <em>@context.Name</em>
+   <hr/>
+</Virtualize>
+}
