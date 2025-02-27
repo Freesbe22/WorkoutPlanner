@@ -7,8 +7,6 @@ namespace WorkoutPlanner
         public MainPage()
         {
             InitializeComponent();
-
-            //Firebase
         }
     }
 }
