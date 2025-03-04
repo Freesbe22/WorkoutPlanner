@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using WorkoutPlanner.DataObject.Enum;
+using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner.DataObject
 {

@@ -27,7 +27,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
         #region Loading
         protected override async Task OnInitializedAsync()
         {
-            Phase.ProgramId = Phase.Id;
+            Phase.ProgramId = Program.Id;
             ScheduleTypes = new List<SelectedItem>() 
             { 
                 new SelectedItem(ScheduleType.DayNumbers.ToString(), "Numerical (Day 1)"),
@@ -53,7 +53,9 @@ namespace WorkoutPlanner.Components.Pages.Plan
         }
         private async Task OnValidSubmit(EditContext context)
         {
-            await FirestoreService.db.Collection(typeof(ProgramPhase).Name).AddAsync(Phase);
+            //await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).AddAsync(Phase);
+            Program.Phases.Add(Phase);
+            await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id),Program);
             Modal.Close();
         }
         private async Task OnCancel()

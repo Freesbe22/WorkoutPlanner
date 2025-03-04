@@ -12,6 +12,8 @@ namespace WorkoutPlanner.Components.Pages
         public FirestoreService FirestoreService { get; set; }
         private List<WorkoutPlan> Programs { get; set; } = new List<WorkoutPlan>();
         private WorkoutPlan? Program { get; set; }
+        private List<WorkoutPlan> Phases { get; set; } = new List<WorkoutPlan>();
+        private WorkoutPlan? Phase { get; set; }
         private bool Initialised { get; set; } = false;
         #endregion
 
