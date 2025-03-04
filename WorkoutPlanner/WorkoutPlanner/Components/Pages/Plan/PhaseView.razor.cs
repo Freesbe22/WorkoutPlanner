@@ -53,7 +53,6 @@ namespace WorkoutPlanner.Components.Pages.Plan
         }
         private async Task OnValidSubmit(EditContext context)
         {
-            //await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).AddAsync(Phase);
             Program.Phases.Add(Phase);
             await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id),Program);
             Modal.Close();
