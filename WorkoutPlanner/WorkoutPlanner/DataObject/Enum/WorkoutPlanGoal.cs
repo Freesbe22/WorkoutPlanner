@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WorkoutPlanner.DataObject.Enum
 {
-    public enum ProgramGoal
+    public enum WorkoutPlanGoal
     {
         WeightLoss,     // Perte de poids
         MuscleGain,     // Prise de masse

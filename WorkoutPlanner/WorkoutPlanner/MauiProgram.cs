@@ -1,5 +1,6 @@
-﻿using Firebase.Database;
+﻿using Google.Cloud.Firestore;
 using Microsoft.Extensions.Logging;
+using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner;
 
@@ -21,7 +22,8 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
-        builder.Services.AddSingleton(new FirebaseClient("https://thedreamlife-workoutplanner-default-rtdb.europe-west1.firebasedatabase.app/"));
+        //builder.Services.AddSingleton(new FirebaseClient("https://thedreamlife-workoutplanner-default-rtdb.europe-west1.firebasedatabase.app/"));
+        builder.Services.AddSingleton<FirestoreService>();
 
         return builder.Build();
 	}

@@ -1,53 +1,53 @@
-﻿using Firebase.Database;
-using Firebase.Database.Query;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components;
 using WorkoutPlanner.DataObject;
+using WorkoutPlanner.Tools;
+using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner.Components.Pages
 {
     partial class Workout : ComponentBase
     {
         [Inject]
-        public FirebaseClient FirebaseClient { get; set; }
-        public ObservableCollection<WorkoutPlanner.DataObject.Program> Programs { get; set; } = new ObservableCollection<WorkoutPlanner.DataObject.Program>();
-        public WorkoutPlanner.DataObject.Program Program { get; set; }
+        public FirestoreService FirestoreService { get; set; }
+        public List<WorkoutPlan> Programs { get; set; } = new List<WorkoutPlan>();
+        public WorkoutPlan Program { get; set; }
+        private bool Initialised { get; set; } = false;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            Programs.CollectionChanged += Exercises_CollectionChanged;
+            await LoadPrograms();
+            Initialised = true;
+            InvokeAsync(() => { StateHasChanged(); });
 
-            var collection = FirebaseClient
-    .Child("Program")
-    .AsObservable<WorkoutPlanner.DataObject.Program>()
-    .Subscribe((item) =>
-    {
-        if (item.Object != null)
-        {
-            Programs.Add(item.Object);
+            await base.OnInitializedAsync();
         }
-    });
 
-            if(Programs.Count < 1)
+        private async Task LoadPrograms()
+        {
+            var firebaseObjectsPublic = await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).WhereEqualTo("IsPublic", true).GetSnapshotAsync();
+            firebaseObjectsPublic.ToList().ForEach(firebaseObject => Programs.Add(firebaseObject.ConvertTo<WorkoutPlan>()));
+            var firebaseObjectsUser = await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).WhereEqualTo("UserId", "-OK70UxZQBMP6H9kHQuigoi").GetSnapshotAsync();
+            firebaseObjectsUser.ToList().ForEach(firebaseObject => Programs.Add(firebaseObject.ConvertTo<WorkoutPlan>()));
+
+            Program = Programs.FirstOrDefault();
+
+            //var firebaseObjectsUser = await FirebaseClient.Child(typeof(WorkoutPlan).Name).OrderBy("UserId").EqualTo("-OK70UxZQBMP6H9kHQuigoi").OnceAsync<WorkoutPlan>();
+
+            //Programs = DBHelper.FirebaseObjectsToList(firebaseObjectsPublic);
+            //Programs.AddRange(DBHelper.FirebaseObjectsToList(firebaseObjectsUser));
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+
+            if (Programs.Count < 1 && Initialised)
             {
-                FirebaseClient.Child("Program").PostAsync(new WorkoutPlanner.DataObject.Program
-                {
-                    Name = "Your first program",
-                });
+                //DBHelper.Post(FirebaseClient, new WorkoutPlan
+                //{
+                //    Name = "Your first program",
+                //});
             }
-            base.OnInitialized();
-        }
-
-        private void Exercises_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            Program = Programs.First();
-            InvokeAsync( () => { StateHasChanged(); });
+            base.OnAfterRender(firstRender);
         }
     }
 }

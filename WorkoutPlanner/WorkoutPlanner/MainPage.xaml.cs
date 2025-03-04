@@ -1,6 +1,4 @@
-﻿using Firebase.Database;
-
-namespace WorkoutPlanner
+﻿namespace WorkoutPlanner
 {
     public partial class MainPage : ContentPage
     {

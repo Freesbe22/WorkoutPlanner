@@ -1,11 +1,4 @@
-﻿using Firebase.Database;
-using Firebase.Database.Query;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components;
 using WorkoutPlanner.DataObject;
 
 namespace WorkoutPlanner.Components.Pages
@@ -18,11 +11,11 @@ namespace WorkoutPlanner.Components.Pages
         {
             currentCount++;
 
-            FirebaseClient firebaseClient = new FirebaseClient("https://thedreamlife-workoutplanner-default-rtdb.europe-west1.firebasedatabase.app/");
-            firebaseClient.Child("Exercises").PostAsync(new Exercise
-            {
-                Name = "Push-up"+ currentCount,
-            });
+            //FirebaseClient firebaseClient = new FirebaseClient("https://thedreamlife-workoutplanner-default-rtdb.europe-west1.firebasedatabase.app/");
+            //firebaseClient.Child("Exercises").PostAsync(new Exercise
+            //{
+            //    Name = "Push-up"+ currentCount,
+            //});
         }
     }
 }
