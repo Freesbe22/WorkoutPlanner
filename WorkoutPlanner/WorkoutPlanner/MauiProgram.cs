@@ -24,6 +24,7 @@ public static class MauiProgram
 #endif
         //builder.Services.AddSingleton(new FirebaseClient("https://thedreamlife-workoutplanner-default-rtdb.europe-west1.firebasedatabase.app/"));
         builder.Services.AddSingleton<FirestoreService>();
+        builder.Services.AddBootstrapBlazor();
 
         return builder.Build();
 	}

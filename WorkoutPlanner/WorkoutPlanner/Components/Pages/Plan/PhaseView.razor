@@ -1,0 +1,31 @@
+﻿@if (!Initialised)
+{
+    <Button IsOutline=true Color="Color.Secondary" IsDisabled=true><i class="bi bi-plus-circle"></i> Add a phase</Button>
+}
+else
+{
+    <Button OnClick="@ToggleModal" IsOutline=true Color="Color.Secondary"><i class="bi bi-plus-circle"></i> Add a phase</Button>
+
+
+    <Modal @ref="Modal">
+        <ModalDialog ShowFooter=false ShowHeader=false>
+            <BodyTemplate>
+                <ValidateForm Model="Phase" OnValidSubmit="OnValidSubmit">
+                    <div class="col-12">
+                        <BootstrapInput @bind-Value="@Phase.Name" />
+                    </div>
+                    <div class="col-12">
+                        <BootstrapInputNumber @bind-Value="@Phase.Duration" />
+                    </div>
+                    <div class="col-12">
+                        <Select Items="ScheduleTypes" OnSelectedItemChanged="OnScheduleTypeChanged" @bind-Value="Phase.ScheduleType"></Select>
+                    </div>
+                    <div class="col-12">
+                        <Button ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.None" Color="Color.Secondary" Text="Cancel" OnClick="OnCancel"></Button>
+                        <Button ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.None" Color="Color.Primary" Text="Submit" IsAsync="true"></Button>
+                    </div>
+                </ValidateForm>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
+}

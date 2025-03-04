@@ -64,6 +64,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="BootstrapBlazor" Version="9.4.2" />
         <PackageReference Include="Google.Cloud.Firestore" Version="3.9.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.40" />
@@ -72,6 +73,10 @@
 
     <ItemGroup>
       <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="9.0.40" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\image\bootstrap_icons\plus-circle.svg" />
     </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ namespace WorkoutPlanner.DataObject
         [FirestoreProperty]
         public WorkoutPlanGoal Goal { get; set; }      // Objectif du programme (Perte de poids, Prise de masse...)
         [FirestoreProperty]
-        public List<Phase> Phases { get; set; } = new();// Liste des IDs des phases du programme
+        public List<ProgramPhase> Phases { get; set; } = new();// Liste des IDs des phases du programme
         [FirestoreProperty]
         public string UserId { get; set; } // Lier le plan à un utilisateur (null si public)
         [FirestoreProperty]
