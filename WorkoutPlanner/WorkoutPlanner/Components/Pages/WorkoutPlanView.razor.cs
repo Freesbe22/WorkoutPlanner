@@ -5,7 +5,7 @@ using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner.Components.Pages
 {
-    partial class Workout : ComponentBase
+    partial class WorkoutPlanView : ComponentBase
     {
         #region Variables
         [Inject]

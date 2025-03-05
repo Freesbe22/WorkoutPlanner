@@ -18,6 +18,7 @@ namespace WorkoutPlanner.DataObject
 
         [FirestoreProperty]
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public int Duration { get; set; }      // Durée de la phase en semaine
 
         [FirestoreProperty]

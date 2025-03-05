@@ -10,7 +10,7 @@ using static Google.Protobuf.Reflection.FeatureSet.Types;
 
 namespace WorkoutPlanner.Components.Pages.Plan
 {
-    partial class PhaseView : ComponentBase
+    partial class PhaseAddView : ComponentBase
     {
         #region Variables
         [Inject]
@@ -30,8 +30,8 @@ namespace WorkoutPlanner.Components.Pages.Plan
             Phase.ProgramId = Program.Id;
             ScheduleTypes = new List<SelectedItem>() 
             { 
-                new SelectedItem(ScheduleType.DayNumbers.ToString(), "Numerical (Day 1)"),
-                new SelectedItem(ScheduleType.WeekDays.ToString(), "Day of Week (Mon.)")
+                new SelectedItem(ScheduleType.WeekDays.ToString(), "Day of Week (Mon.)"),
+                new SelectedItem(ScheduleType.DayNumbers.ToString(), "Numerical (Day 1)")
             };
             Initialised = true;
             await InvokeAsync(() => { StateHasChanged(); });

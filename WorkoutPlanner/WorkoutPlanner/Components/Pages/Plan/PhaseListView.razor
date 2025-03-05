@@ -1,0 +1,62 @@
+﻿@using WorkoutPlanner.DataObject
+
+@if (!Initialised)
+{
+    <Collapse>
+        <CollapseItem>
+            <HeaderTemplate>
+                <div class="placeholder-glow">
+                    <span class="placeholder col-2"></span>
+                    <span class="placeholder col-2 ms-3"></span>
+                </div>
+            </HeaderTemplate>
+        </CollapseItem>
+    </Collapse>
+}
+else
+{
+    <div class="row">
+        <ul class="nav nav-underline col-11">
+            <li class="nav-item">
+                <a class="nav-link active">@Program.Name</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-body-secondary">@Program.Goal.ToString()</a>
+            </li>
+        </ul>
+        <div class="col-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases">@Program.Goal.ToString()</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-0">
+            <div class="collapse" id="collapsePhases">
+                <div class="list-group rounded-top-0">
+                    @foreach (var phase in Program.Phases)
+                    {
+                        <div class="list-group-item d-flex @(string.Equals(phase.Id, Phase.Id)? "active" : "")" draggable="true" role="option" aria-grabbed="false" @onclick="(()=>SelectPhase(phase))">
+                            <div class=" d-flex flex-column">
+                                <h3 class="text-wrap text-body">@phase.Name</h3>
+
+                                <p class="text-body-secondary">@phase.Duration week(s)</p>
+                            </div>
+                            <div class="ms-auto my-auto">
+                                <div class="item-action dropdown">
+
+                                    <Button ButtonStyle=ButtonStyle.None OnClick="(()=>EditPhase(phase))">
+                                        Edit phase
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="list-group-item" draggable="true" role="option" aria-grabbed="false">
+                        <Button ButtonStyle=ButtonStyle.None OnClick="NewPhase">
+                            Add new phase
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
