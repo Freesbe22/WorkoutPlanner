@@ -10,7 +10,7 @@ using static Google.Protobuf.Reflection.FeatureSet.Types;
 
 namespace WorkoutPlanner.Components.Pages.Plan
 {
-    partial class PhaseAddView : ComponentBase
+    partial class PhaseEditView : ComponentBase
     {
         #region Variables
         [Inject]
@@ -18,21 +18,30 @@ namespace WorkoutPlanner.Components.Pages.Plan
         [Parameter]
         [NotNull]
         public WorkoutPlan? Program { get; set; }
+        [Parameter]
+        public ProgramPhase? Phase { get; set; }
+
         private bool Initialised { get; set; } = false;
+        private bool IsEdit { get; set; } = true;
         private Modal Modal { get; set; }= new Modal();
-        private ProgramPhase Phase { get; set; } = new ProgramPhase();
         private IEnumerable<SelectedItem> ScheduleTypes { get; set; }
         #endregion
 
         #region Loading
         protected override async Task OnInitializedAsync()
         {
-            Phase.ProgramId = Program.Id;
             ScheduleTypes = new List<SelectedItem>() 
             { 
                 new SelectedItem(ScheduleType.WeekDays.ToString(), "Day of Week (Mon.)"),
                 new SelectedItem(ScheduleType.DayNumbers.ToString(), "Numerical (Day 1)")
             };
+
+            if(Phase ==null)
+            {
+                Phase = new ProgramPhase() { ProgramId = Program.Id };
+                IsEdit = false;
+            }
+
             Initialised = true;
             await InvokeAsync(() => { StateHasChanged(); });
 
@@ -53,7 +62,10 @@ namespace WorkoutPlanner.Components.Pages.Plan
         }
         private async Task OnValidSubmit(EditContext context)
         {
-            Program.Phases.Add(Phase);
+            if (!IsEdit)
+            {
+                Program.Phases.Add(Phase);
+            }
             await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id),Program);
             Modal.Close();
         }

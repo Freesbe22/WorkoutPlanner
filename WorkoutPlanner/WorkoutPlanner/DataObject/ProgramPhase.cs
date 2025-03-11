@@ -18,8 +18,12 @@ namespace WorkoutPlanner.DataObject
 
         [FirestoreProperty]
         [Required]
+        public int Order { get; set; }      // Ordre de la phase dans le programme
+
+        [FirestoreProperty]
+        [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
-        public int Duration { get; set; }      // Durée de la phase en semaine
+        public int Cycle { get; set; }      // Durée de la phase en semaine
 
         [FirestoreProperty]
         [Required]
@@ -30,6 +34,6 @@ namespace WorkoutPlanner.DataObject
         public ScheduleType ScheduleType { get; set; } // Type de planification
 
         [FirestoreProperty]
-        public List<Workout> Workouts { get; set; }  // Liste des IDs des entraînements de cette phase
+        public List<Workout> Workouts { get; set; } // Liste des IDs des entraînements de cette phase
     }
 }

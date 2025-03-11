@@ -22,7 +22,6 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
         {
             await LoadPrograms();
             Initialised = true;
-            await InvokeAsync(() => { StateHasChanged(); });
 
             await base.OnInitializedAsync();
         }

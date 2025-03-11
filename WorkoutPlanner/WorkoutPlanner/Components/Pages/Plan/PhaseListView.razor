@@ -2,58 +2,60 @@
 
 @if (!Initialised)
 {
-    <Collapse>
-        <CollapseItem>
-            <HeaderTemplate>
-                <div class="placeholder-glow">
-                    <span class="placeholder col-2"></span>
-                    <span class="placeholder col-2 ms-3"></span>
-                </div>
-            </HeaderTemplate>
-        </CollapseItem>
-    </Collapse>
+    <div class="row placeholder-glow">
+                <a class="nav-link active placeholder col-1"></a>
+                <a class="nav-link text-body-secondary placeholder col-1"></a>
+        <div class="placeholder col-1 ms-auto"></div>
+    </div>
 }
 else
 {
-    <div class="row">
-        <ul class="nav nav-underline col-11">
-            <li class="nav-item">
-                <a class="nav-link active">@Program.Name</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-body-secondary">@Program.Goal.ToString()</a>
-            </li>
-        </ul>
-        <div class="col-1">
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases">@Program.Goal.ToString()</a>
+    @if (Phase !=null)
+    {
+        <div class="row">
+            <ul class="nav nav-underline col pe-0">
+                <li class="nav-item">
+                    <a class="nav-link active">@Phase.Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-body-secondary">Workout overview</a>
+                </li>
+                <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
+            </ul>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row">
+            <ul class="nav nav-underline col pe-0">
+                <li class="nav-item">
+                    <a class="nav-link active">No active phase</a>
+                </li>
+                <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
+            </ul>
+        </div>
+    }
+
     <div class="row">
         <div class="col-12 px-0">
             <div class="collapse" id="collapsePhases">
                 <div class="list-group rounded-top-0">
                     @foreach (var phase in Program.Phases)
                     {
-                        <div class="list-group-item d-flex @(string.Equals(phase.Id, Phase.Id)? "active" : "")" draggable="true" role="option" aria-grabbed="false" @onclick="(()=>SelectPhase(phase))">
+                        <div class="list-group-item d-flex @(string.Equals(phase.Id, Phase.Id)? "bg-primary-subtle" : "")" @onclick="(()=>SelectPhase(phase))">
                             <div class=" d-flex flex-column">
                                 <h3 class="text-wrap text-body">@phase.Name</h3>
 
-                                <p class="text-body-secondary">@phase.Duration week(s)</p>
+                                <p class="text-body-secondary">@phase.Cycle week(s)</p>
                             </div>
                             <div class="ms-auto my-auto">
-                                <div class="item-action dropdown">
 
-                                    <Button ButtonStyle=ButtonStyle.None OnClick="(()=>EditPhase(phase))">
-                                        Edit phase
-                                    </Button>
-                                </div>
+                                    <PhaseEditView Program="Program" Phase=phase></PhaseEditView>
                             </div>
                         </div>
                     }
-                    <div class="list-group-item" draggable="true" role="option" aria-grabbed="false">
-                        <Button ButtonStyle=ButtonStyle.None OnClick="NewPhase">
-                            Add new phase
-                        </Button>
+                    <div class="list-group-item">
+                        <PhaseEditView Program="Program"></PhaseEditView>
                     </div>
                 </div>
             </div>

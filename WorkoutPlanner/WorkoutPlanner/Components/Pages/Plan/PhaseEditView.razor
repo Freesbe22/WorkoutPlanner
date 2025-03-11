@@ -4,18 +4,24 @@
 }
 else
 {
-    <Button OnClick="@ToggleModal" IsOutline=true Color="Color.Secondary"><i class="bi bi-plus-circle"></i> Add a phase</Button>
-
+    @if (!IsEdit)
+    {
+        <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-primary-emphasis"><i class="bi bi-plus-circle"></i> Add a phase</Button>
+    }
+    else
+    {
+        <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.ExtraLarge"></Button>
+    }
 
     <Modal @ref="Modal">
         <ModalDialog ShowFooter=false ShowHeader=false>
             <BodyTemplate>
-                <ValidateForm Model="Phase" OnValidSubmit="OnValidSubmit">
+                <ValidateForm Model="Phase" ShowRequiredMark=false OnValidSubmit="OnValidSubmit" DisableAutoSubmitFormByEnter="true">
                     <div class="col-12">
-                        <BootstrapInput @bind-Value="@Phase.Name" />
+                        <BootstrapInput @bind-Value="@Phase.Name"/>
                     </div>
                     <div class="col-12">
-                        <BootstrapInputNumber @bind-Value="@Phase.Duration" />
+                        <BootstrapInputNumber @bind-Value="@Phase.Cycle" />
                     </div>
                     <div class="col-12">
                         <Select Items="ScheduleTypes" OnSelectedItemChanged="OnScheduleTypeChanged" @bind-Value="Phase.ScheduleType"></Select>
