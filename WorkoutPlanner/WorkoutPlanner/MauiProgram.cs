@@ -1,5 +1,9 @@
-﻿using Google.Cloud.Firestore;
+﻿using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
+using WorkoutPlanner.Tools;
 using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner;
@@ -22,8 +26,20 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
-        //builder.Services.AddSingleton(new FirebaseClient("https://thedreamlife-workoutplanner-default-rtdb.europe-west1.firebasedatabase.app/"));
         builder.Services.AddSingleton<FirestoreService>();
+        builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+        {
+            ApiKey = "AIzaSyBBQEm6Bu8zlN02L7aJLzWJi7nvmkTg9r8",
+            AuthDomain = "thedreamlife-workoutplanner.firebaseapp.com",
+            Providers = new Firebase.Auth.Providers.FirebaseAuthProvider[]
+            {
+                new EmailProvider()
+            },
+            UserRepository = new FileUserRepository("thedreamlife-workoutplanner")
+        }));
+        builder.Services.AddScoped<StateProvider>();
+        builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<StateProvider>());
+        builder.Services.AddAuthorizationCore();
         builder.Services.AddBootstrapBlazor();
 
         return builder.Build();

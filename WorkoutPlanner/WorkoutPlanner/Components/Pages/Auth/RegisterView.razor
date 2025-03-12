@@ -1,0 +1,38 @@
+﻿@page "/register"
+
+<div class="row g-3">
+    <NavLink href="login"><i class="btn btn-outline-secondary bi bi-chevron-left"></i></NavLink>
+    <ValidateForm Model="@RegisterModel" OnValidSubmit="((e)=>Register())" >
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput PlaceHolder="youremail@test.test"
+                                @bind-Value="@RegisterModel.Email"
+                                ShowLabel="true"
+                                DisplayText="Email address" SkipValidate=true/>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@RegisterModel.Password"
+                                IsSelectAllTextOnFocus="true"
+                                ShowLabel="true"
+                                DisplayText="Password"
+                                type="password" />
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@RegisterModel.PasswordConfirm"
+                                IsSelectAllTextOnFocus="true"
+                                ShowLabel="true"
+                                DisplayText="Password confirmation"
+                                type="password" />
+            </div>
+        </div>
+        <div class="row g-3 form-inline mt-0">
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid faRegistery-disk" Text="Submit" IsAsync="true"></Button>
+            </div>
+        </div>
+    </ValidateForm>
+</div>

@@ -1,5 +1,5 @@
-﻿@page "/"
-@page "/workout"
+﻿@page "/workout"
+@attribute [Authorize]
 
 <div class="row">
     <ul class="nav justify-content-center">
@@ -15,36 +15,36 @@
     </ul>
 </div>
 
-    @if (!Initialised)
-    {
-<div class="row">
+@if (!Initialised)
+{
+    <div class="row">
         <div class="col-12 card">
             <div class="card-body placeholder-glow">
                 <h5 class="card-title placeholder col-10"></h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary placeholder col-6"></h6>
             </div>
         </div>
-</div>
-    }
-    else if (Programs.Count < 1 && Initialised)
-    {
-        <div class="card">
-            Add
-        </div>
-    }
-    else
-    {
-<div class="row">
+    </div>
+}
+else if (Programs.Count < 1 && Initialised)
+{
+    <div class="card">
+        Add
+    </div>
+}
+else
+{
+    <div class="row">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">@Program.Name</h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">@Program.Goal.ToString()</h6>
-                </div>
-                </div>
             </div>
-            
-                        <WorkoutPlanner.Components.Pages.Plan.PhaseListView Program="@Program"></WorkoutPlanner.Components.Pages.Plan.PhaseListView>
-    }
+        </div>
+    </div>
+
+    <WorkoutPlanner.Components.Pages.Plan.PhaseListView Program="@Program"></WorkoutPlanner.Components.Pages.Plan.PhaseListView>
+}
 
 @* @if (Exercises.Count <= 0 )
 {

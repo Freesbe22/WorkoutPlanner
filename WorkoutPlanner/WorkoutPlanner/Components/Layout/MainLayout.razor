@@ -1,6 +1,10 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="container vh-100">
-    <NavMenu />
-    @Body
+    <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+        <Authorized>
+            <NavMenu />
+        </Authorized>
+    </Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+            @Body
 </div>
