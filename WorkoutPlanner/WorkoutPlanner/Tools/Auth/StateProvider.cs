@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Firebase.Auth;
 
 #region Region
-namespace WorkoutPlanner.Tools
+namespace WorkoutPlanner.Tools.Auth
 {
     public class StateProvider : AuthenticationStateProvider
     {

@@ -64,12 +64,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BootstrapBlazor" Version="9.4.2" />
+        <PackageReference Include="BootstrapBlazor" Version="9.4.8" />
         <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
-        <PackageReference Include="Google.Cloud.Firestore" Version="3.9.0" />
+        <PackageReference Include="Google.Cloud.Firestore" Version="3.10.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.40" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -80,5 +80,20 @@
       <None Include="Components\Pages\Plan\PhaseEditView.razor" />
       <None Include="wwwroot\image\bootstrap_icons\plus-circle.svg" />
     </ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Tools\Auth\AppResources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppResources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Tools\Auth\AppResources.resx">
+			<LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>

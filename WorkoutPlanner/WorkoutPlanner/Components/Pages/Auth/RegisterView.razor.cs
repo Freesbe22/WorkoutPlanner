@@ -1,9 +1,8 @@
 ﻿using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
-using WorkoutPlanner.DataObject;
-using WorkoutPlanner.Tools;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using WorkoutPlanner.Tools.Auth;
 
 namespace WorkoutPlanner.Components.Pages.Auth
 {
@@ -16,6 +15,8 @@ namespace WorkoutPlanner.Components.Pages.Auth
         public NavigationManager NavManager { get; set; }
         [Inject]
         public StateProvider AuthStateProvider { get; set; }
+        [Inject]
+        private IStringLocalizer<AppResources> Localizer { get; set; }
         private RegisterViewModel RegisterModel { get; set; } = new RegisterViewModel();
         private bool Initialised { get; set; } = false;
         private string Error { get; set; }
@@ -40,7 +41,7 @@ namespace WorkoutPlanner.Components.Pages.Auth
             }
             catch (FirebaseAuthHttpException ex)
             {
-                Error = ex.Reason.ToString();
+                Error = FirebaseErrorLookup.LookupError(ex);
             }
         }
 
@@ -49,22 +50,23 @@ namespace WorkoutPlanner.Components.Pages.Auth
             if (AuthClient.User != null)
             {
                 AuthStateProvider.ManageUser();
-                NavManager.NavigateTo("/workout");
+                NavManager.NavigateTo("/workout",replace:true);
             }
         }
 
         #region Model
         public class RegisterViewModel
         {
-            [Required, EmailAddress]
+            [Required(ErrorMessageResourceName = nameof(AppResources.fui_required_field), ErrorMessageResourceType = typeof(AppResources))]
+            [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = nameof(AppResources.fui_required_field), ErrorMessageResourceType = typeof(AppResources))]
             [StringLength(255, ErrorMessage = "Must be between 6 and 255 characters", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = nameof(AppResources.fui_required_field), ErrorMessageResourceType = typeof(AppResources))]
             [StringLength(255, ErrorMessage = "Must be between 6 and 255 characters", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Compare(nameof(Password))]

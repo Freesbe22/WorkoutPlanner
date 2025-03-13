@@ -1,7 +1,8 @@
 ﻿using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
-using WorkoutPlanner.Tools;
+using WorkoutPlanner.Tools.Auth;
 
 namespace WorkoutPlanner.Components.Pages.Auth
 {
@@ -14,6 +15,8 @@ namespace WorkoutPlanner.Components.Pages.Auth
         public NavigationManager NavManager { get; set; }
         [Inject]
         public StateProvider AuthStateProvider { get; set; }
+        [Inject]
+        private IStringLocalizer<AppResources> Localizer { get; set; }
         private SignInViewModel SignInModel { get; set; } = new SignInViewModel();
         private bool Initialised { get; set; } = false;
         #endregion
@@ -42,17 +45,18 @@ namespace WorkoutPlanner.Components.Pages.Auth
             if (AuthClient.User != null)
             {
                 AuthStateProvider.ManageUser();
-                NavManager.NavigateTo("/workout");
+                NavManager.NavigateTo("/workout", replace: true);
             }
         }
 
         #region Model
         public class SignInViewModel
         {
-            [Required, EmailAddress]
+            [Required(ErrorMessageResourceName = nameof(AppResources.fui_required_field), ErrorMessageResourceType = typeof(AppResources))]
+            [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = nameof(AppResources.fui_required_field), ErrorMessageResourceType = typeof(AppResources))]
             [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
             [DataType(DataType.Password)]
             public string Password { get; set; }

@@ -5,33 +5,22 @@
     <ValidateForm Model="@RegisterModel" OnValidSubmit="((e)=>Register())" >
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput PlaceHolder="youremail@test.test"
-                                @bind-Value="@RegisterModel.Email"
-                                ShowLabel="true"
-                                DisplayText="Email address" SkipValidate=true/>
+                <BootstrapInput @bind-Value="@RegisterModel.Email" DisplayText="@Localizer["fui_email_hint"]"/>
             </div>
         </div>
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@RegisterModel.Password"
-                                IsSelectAllTextOnFocus="true"
-                                ShowLabel="true"
-                                DisplayText="Password"
-                                type="password" />
+                <BootstrapInput @bind-Value="@RegisterModel.Password" DisplayText="@Localizer["fui_password_hint"]" type="password" />
             </div>
         </div>
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@RegisterModel.PasswordConfirm"
-                                IsSelectAllTextOnFocus="true"
-                                ShowLabel="true"
-                                DisplayText="Password confirmation"
-                                type="password" />
+                <BootstrapInput @bind-Value="@RegisterModel.PasswordConfirm" DisplayText="@Localizer["fui_password_hint"]" type="password" />
             </div>
         </div>
         <div class="row g-3 form-inline mt-0">
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid faRegistery-disk" Text="Submit" IsAsync="true"></Button>
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid faRegistery-disk" Text="@Localizer["fui_title_register_email"]" IsAsync="true"></Button>
             </div>
         </div>
     </ValidateForm>

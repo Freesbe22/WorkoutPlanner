@@ -5,30 +5,21 @@
     <ValidateForm Model="@SignInModel" OnValidSubmit="((e)=>SignIn())">
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput PlaceHolder="youremail@test.test"
-                                @bind-Value="@SignInModel.Email"
-                                IsAutoFocus="true"
-                                IsSelectAllTextOnFocus="true"
-                                ShowLabel="true"
-                                DisplayText="Email address" />
+                <BootstrapInput @bind-Value="@SignInModel.Email" DisplayText="@Localizer["fui_email_hint"]" />
             </div>
         </div>
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@SignInModel.Password"
-                                IsSelectAllTextOnFocus="true"
-                                ShowLabel="true"
-                                DisplayText="Password"
-                                type="password"/>
+                <BootstrapInput @bind-Value="@SignInModel.Password" DisplayText="@Localizer["fui_password_hint"]" type="password"/>
             </div>
         </div>
         <div class="row g-3 form-inline mt-0">
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="Submit" IsAsync="true"></Button>
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["fui_sign_in_default"]" IsAsync="true"></Button>
             </div>
         </div>
         <div class="row g-3 form-inline mt-0">
-            <NavLink href="register">Register here</NavLink>
+            <NavLink href="register">@Localizer["fui_title_register_email"]</NavLink>
         </div>
     </ValidateForm>
 </div>
