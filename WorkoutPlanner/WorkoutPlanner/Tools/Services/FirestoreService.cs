@@ -23,10 +23,6 @@ namespace WorkoutPlanner.Tools.Services
         {
             if (db == null)
             {
-                var stream = await FileSystem.OpenAppPackageFileAsync("thedreamlife-workoutplanner-firebase-adminsdk-fbsvc-2b161b85ab.json");
-                var reader = new StreamReader(stream);
-                var contents = reader.ReadToEnd();
-
                 db = new FirestoreDbBuilder
                 {
                     ProjectId = "thedreamlife-workoutplanner",
@@ -36,7 +32,7 @@ namespace WorkoutPlanner.Tools.Services
                         new EnumJsonConverter<WorkoutPlanGoal>(),
                         new EnumJsonConverter<ScheduleType>(),
                     },
-                    JsonCredentials = contents
+                    JsonCredentials = await Secret.FirestoreCredentialsAsync()
                 }.Build();
             }
         }

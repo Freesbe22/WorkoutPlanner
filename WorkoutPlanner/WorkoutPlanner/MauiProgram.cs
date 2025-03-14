@@ -4,6 +4,8 @@ using Firebase.Auth.Repository;
 using Google.Api;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
+using UIKit;
+using WorkoutPlanner.Tools;
 using WorkoutPlanner.Tools.Auth;
 using WorkoutPlanner.Tools.Services;
 
@@ -31,7 +33,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<FirestoreService>();
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
-            ApiKey = "AIzaSyBBQEm6Bu8zlN02L7aJLzWJi7nvmkTg9r8",
+            ApiKey = Secret.ApiKey,
             AuthDomain = "thedreamlife-workoutplanner.firebaseapp.com",
             Providers = new Firebase.Auth.Providers.FirebaseAuthProvider[]
             {
