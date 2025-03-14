@@ -1,12 +1,7 @@
 ﻿using Google.Cloud.Firestore;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using WorkoutPlanner.DataObject.Enum;
-using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner.DataObject
 {
@@ -16,10 +11,13 @@ namespace WorkoutPlanner.DataObject
         [FirestoreDocumentId]
         public string Id { get; set; }             // Identifiant unique du programme
         [FirestoreProperty]
+        [Display(Name ="Name")]
+        [Required]
         public string Name { get; set; }           // Nom du programme (ex: "Prise de masse 12 semaines")
         [FirestoreProperty]
         public string Description { get; set; }    // Description du programme
         [FirestoreProperty]
+        [Required]
         public WorkoutPlanGoal Goal { get; set; }      // Objectif du programme (Perte de poids, Prise de masse...)
         [FirestoreProperty]
         public List<ProgramPhase> Phases { get; set; } = new();// Liste des IDs des phases du programme

@@ -30,7 +30,13 @@ namespace WorkoutPlanner.Components.Pages.Plan
 
         private async Task Load()
         {
-            await SelectPhase("041aHhb71TqSs0aTA2de");
+            await SelectPhase(Program.UserId);
+        }
+
+        protected async Task OnPhaseChanged()
+        {
+            await SelectPhase(Program.UserId);
+            await InvokeAsync(() => { StateHasChanged(); });
         }
 
         public async Task<IEnumerable<UserProgress>> GetLastWorkouts(string userId)

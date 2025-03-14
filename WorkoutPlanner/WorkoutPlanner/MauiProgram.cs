@@ -27,6 +27,7 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
+        builder.Services.AddBootstrapBlazor();
         builder.Services.AddSingleton<FirestoreService>();
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
@@ -41,8 +42,7 @@ public static class MauiProgram
         builder.Services.AddScoped<StateProvider>();
         builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<StateProvider>());
         builder.Services.AddAuthorizationCore();
-        builder.Services.AddLocalization();
-        builder.Services.AddBootstrapBlazor();
+        //builder.Services.AddLocalization();
 
         return builder.Build();
 	}

@@ -50,12 +50,12 @@ else
                             </div>
                             <div class="ms-auto my-auto">
 
-                                    <PhaseEditView Program="Program" Phase=phase></PhaseEditView>
+                                                    <PhaseEditView Program="Program" Phase=phase OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
                             </div>
                         </div>
                     }
                     <div class="list-group-item">
-                        <PhaseEditView Program="Program"></PhaseEditView>
+                                <PhaseEditView Program="Program" OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
                     </div>
                 </div>
             </div>

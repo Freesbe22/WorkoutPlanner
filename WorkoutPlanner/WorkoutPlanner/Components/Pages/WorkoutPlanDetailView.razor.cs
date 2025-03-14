@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Firebase.Auth;
+using Microsoft.AspNetCore.Components;
 using WorkoutPlanner.DataObject;
-using WorkoutPlanner.Tools;
 using WorkoutPlanner.Tools.Services;
 
 namespace WorkoutPlanner.Components.Pages
 {
-    partial class WorkoutPlanView : ComponentBase
+    partial class WorkoutPlanDetailView : ComponentBase
     {
         #region Variables
         [Inject]
         public FirestoreService FirestoreService { get; set; }
+        [Inject]
+        public FirebaseAuthClient AuthClient { get; set; }
         private List<WorkoutPlan> Programs { get; set; } = new List<WorkoutPlan>();
         private WorkoutPlan? Program { get; set; }
         private List<WorkoutPlan> Phases { get; set; } = new List<WorkoutPlan>();
@@ -27,11 +29,20 @@ namespace WorkoutPlanner.Components.Pages
             await base.OnInitializedAsync();
         }
 
+        protected async Task OnProgramChanged()
+        {
+            if(Program is null)
+            {
+                await LoadPrograms();
+            }
+            await InvokeAsync(() => { StateHasChanged(); });
+        }
+
         private async Task LoadPrograms()
         {
             ///WIP Tmp
-            var firebaseObjectsPublic = await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).WhereEqualTo("IsPublic", true).GetSnapshotAsync();
-            var firebaseObjectsUser = await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).WhereEqualTo("UserId", "-OK70UxZQBMP6H9kHQuigoi").GetSnapshotAsync();
+            var firebaseObjectsPublic = await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).WhereEqualTo(nameof(WorkoutPlan.IsPublic), true).GetSnapshotAsync();
+            var firebaseObjectsUser = await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).WhereEqualTo(nameof(WorkoutPlan.UserId), AuthClient.User.Uid).GetSnapshotAsync();
             firebaseObjectsPublic.ToList().ForEach(firebaseObject => Programs.Add(firebaseObject.ConvertTo<WorkoutPlan>()));
             firebaseObjectsUser.ToList().ForEach(firebaseObject => Programs.Add(firebaseObject.ConvertTo<WorkoutPlan>()));
 

@@ -28,9 +28,7 @@
 }
 else if (Programs.Count < 1 && Initialised)
 {
-    <div class="card">
-        Add
-    </div>
+        <WorkoutPlanner.Components.Pages.WorkoutPlanEditView OnProgramChange="(()=>OnProgramChanged())" ></WorkoutPlanner.Components.Pages.WorkoutPlanEditView>
 }
 else
 {

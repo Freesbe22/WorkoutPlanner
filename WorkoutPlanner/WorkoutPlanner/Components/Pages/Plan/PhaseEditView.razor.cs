@@ -20,6 +20,8 @@ namespace WorkoutPlanner.Components.Pages.Plan
         public WorkoutPlan? Program { get; set; }
         [Parameter]
         public ProgramPhase? Phase { get; set; }
+        [Parameter]
+        public EventCallback OnPhaseChange { get; set; }
 
         private bool Initialised { get; set; } = false;
         private bool IsEdit { get; set; } = true;
@@ -36,10 +38,11 @@ namespace WorkoutPlanner.Components.Pages.Plan
                 new SelectedItem(ScheduleType.DayNumbers.ToString(), "Numerical (Day 1)")
             };
 
-            if(Phase ==null)
+
+            IsEdit = Phase is not null;
+            if (!IsEdit)
             {
                 Phase = new ProgramPhase() { ProgramId = Program.Id };
-                IsEdit = false;
             }
 
             Initialised = true;
@@ -68,6 +71,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
             }
             await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id),Program);
             Modal.Close();
+            OnPhaseChange.InvokeAsync();
         }
         private async Task OnCancel()
         {
