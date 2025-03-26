@@ -1,10 +1,8 @@
 ﻿using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
-using Google.Api;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
-using UIKit;
 using WorkoutPlanner.Tools;
 using WorkoutPlanner.Tools.Auth;
 using WorkoutPlanner.Tools.Services;
@@ -44,7 +42,7 @@ public static class MauiProgram
         builder.Services.AddScoped<StateProvider>();
         builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<StateProvider>());
         builder.Services.AddAuthorizationCore();
-        //builder.Services.AddLocalization();
+        builder.Services.AddLocalization();
 
         return builder.Build();
 	}

@@ -77,7 +77,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Components\Pages\Plan\PhaseEditView.razor" />
       <None Include="wwwroot\image\bootstrap_icons\plus-circle.svg" />
     </ItemGroup>
 

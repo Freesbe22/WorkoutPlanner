@@ -14,9 +14,13 @@ namespace WorkoutPlanner.Components.Pages.Plan
         [Parameter]
         [NotNull]
         public WorkoutPlan Program { get; set; }
-        private ProgramPhase? Phase { get; set; }
+        [Parameter]
+        public ProgramPhase? Phase { get; set; }
+        [Parameter]
+        public EventCallback OnPhaseChange { get; set; }
+        public Workout? Workout { get; set; }
         private bool Initialised { get; set; } = false;
-        private bool IsBackdropOpen { get; set; } = false;
+        private bool IsWorkoutOverview { get; set; } = false;
         #endregion
 
         #region Loading
@@ -33,38 +37,51 @@ namespace WorkoutPlanner.Components.Pages.Plan
             await SelectPhase(Program.UserId);
         }
 
+        protected async Task OnWorkoutSelected(Workout workout)
+        {
+            Workout = workout;
+            IsWorkoutOverview = true;
+            await InvokeAsync(() => { StateHasChanged(); });
+        }
+
         protected async Task OnPhaseChanged()
         {
+            await OnPhaseChange.InvokeAsync();
             await SelectPhase(Program.UserId);
             await InvokeAsync(() => { StateHasChanged(); });
         }
 
         public async Task<IEnumerable<UserProgress>> GetLastWorkouts(string userId)
         {
-            //int maxWorkoutProgram = 0;
-            //foreach (var phase in Program.Phases)
-            //{
-            //    try
-            //    {
-            //        maxWorkoutProgram += phase.Workouts.Where(
-            //            workout => workout.Type == WorkoutType.Normal)
-            //            .ToList().Count * phase.Cycle;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        //Nothing
-            //    }
-            //}
+            int maxWorkoutProgram = 0;
+            foreach (var phase in Program.Phases)
+            {
+                try
+                {
+                    maxWorkoutProgram += phase.Workouts.Where(
+                        workout => !workout.IsRest)
+                        .ToList().Count * phase.Cycle;
+                }
+                catch (Exception)
+                {
+                    //Nothing
+                }
+            }
 
-            //var progressRef = FirestoreService.db.Collection(typeof(UserProgress).Name)
-            //    .WhereEqualTo("UserId", userId)
-            //    .OrderBy("Date")
-            //    .Limit(maxWorkoutProgram);
+            try
+            {
+                var progressRef = FirestoreService.db.Collection(typeof(UserProgress).Name)
+                        .WhereEqualTo("UserId", userId)
+                        .OrderBy("Date")
+                        .Limit(maxWorkoutProgram);
 
-            //var snapshot = await progressRef.GetSnapshotAsync();
-            //return snapshot.ToList().Select(firebaseObject => firebaseObject.ConvertTo<UserProgress>());
-
-            return new List<UserProgress>().AsEnumerable();
+                var snapshot = await progressRef.GetSnapshotAsync();
+                return snapshot.ToList().Select(firebaseObject => firebaseObject.ConvertTo<UserProgress>());
+            }
+            catch (Exception)
+            {
+                return new List<UserProgress>();
+            }
         }
 
         public async Task SelectPhase(string userId)
@@ -81,7 +98,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
                 try
                 {
                     lastPhase = phasesWithWorkout.Where(phase => phase.Workouts.Where(workout => workout.Id.Equals(workoutsOfProgram.First().WorkoutId)).ToList().Count > 0).First();
-                    maxWorkoutsOfPhase = lastPhase.Workouts.Where(workout => workout.Type == WorkoutType.Normal).ToList().Count * lastPhase.Cycle;
+                    maxWorkoutsOfPhase = lastPhase.Workouts.Where(workout => !workout.IsRest).ToList().Count * lastPhase.Cycle;
 
                     lastPhase.Workouts.ForEach(workout => workoutFinishedInPhase += workoutsOfProgram.Where(workoutProgram => workoutProgram.WorkoutId.Equals(workout.Id)).ToList().Count);
                 }

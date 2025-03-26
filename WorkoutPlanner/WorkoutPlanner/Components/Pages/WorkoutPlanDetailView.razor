@@ -41,7 +41,7 @@ else
         </div>
     </div>
 
-    <WorkoutPlanner.Components.Pages.Plan.PhaseListView Program="@Program"></WorkoutPlanner.Components.Pages.Plan.PhaseListView>
+    <WorkoutPlanner.Components.Pages.Plan.PhaseListView Program="@Program" OnPhaseChange="(()=>OnProgramChanged())"></WorkoutPlanner.Components.Pages.Plan.PhaseListView>
 }
 
 @* @if (Exercises.Count <= 0 )

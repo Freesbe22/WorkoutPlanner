@@ -46,36 +46,8 @@ namespace WorkoutPlanner.Tools.Services
             }
             await doc.UpdateAsync(updates);
         }
-        //public async Task InsertSampleModel(SampleModel sample)
-        //{
-        //    await SetupFirestore();
-        //    await db.Collection("SampleModels").AddAsync(sample);
-        //}
-        //public async Task<List<SampleModel>> GetSampleModels()
-        //{
-        //    await SetupFirestore();
-        //    var data = await db
-        //                    .Collection("SampleModels")
-        //                    .GetSnapshotAsync();
-        //    var sampleModels = data.Documents
-        //        .Select(doc =>
-        //        {
-        //            var sampleModel = doc.ConvertTo<SampleModel>();
-        //            sampleModel.Id = doc.Id; // FirebaseId hinzufügen
-        //            return sampleModel;
-        //        })
-        //        .ToList();
-        //    return sampleModels;
-        //}
     }
-    //public class EnumJsonConverter<T> : JsonConverter<T> where T : Enum
-    //{
-    //    public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    //        => (T)Enum.Parse(typeof(T), reader.GetString());
 
-    //    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
-    //        => writer.WriteStringValue(value.ToString());
-    //}
     public class EnumJsonConverter<T> : IFirestoreConverter<T> where T : Enum
     {
         public object ToFirestore(T value) => value.ToString();

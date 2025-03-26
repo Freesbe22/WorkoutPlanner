@@ -14,8 +14,7 @@ namespace WorkoutPlanner.Components.Pages
         public FirebaseAuthClient AuthClient { get; set; }
         private List<WorkoutPlan> Programs { get; set; } = new List<WorkoutPlan>();
         private WorkoutPlan? Program { get; set; }
-        private List<WorkoutPlan> Phases { get; set; } = new List<WorkoutPlan>();
-        private WorkoutPlan? Phase { get; set; }
+        private ProgramPhase? Phase { get; set; }
         private bool Initialised { get; set; } = false;
         #endregion
 
@@ -34,6 +33,10 @@ namespace WorkoutPlanner.Components.Pages
             if(Program is null)
             {
                 await LoadPrograms();
+            }
+            else 
+            {
+                await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id), Program);
             }
             await InvokeAsync(() => { StateHasChanged(); });
         }

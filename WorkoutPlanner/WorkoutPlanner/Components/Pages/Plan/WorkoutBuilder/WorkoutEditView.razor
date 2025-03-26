@@ -1,0 +1,45 @@
+﻿@if (!Initialised)
+{
+    <Button IsOutline=true Color="Color.Secondary" IsDisabled=true><i class="bi bi-plus-circle"></i> Add a workout Disable</Button>
+}
+else
+{
+    @if (!IsEdit)
+    {
+        <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-primary-emphasis"><i class="bi bi-plus-circle"></i> Add a workout</Button>
+    }
+    else
+    {
+        <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.ExtraLarge"></Button>
+    }
+
+    <Modal @ref="ModalWorkout">
+        <ModalDialog ShowFooter=false ShowHeader=false>
+            <BodyTemplate>
+                <ValidateForm Model="Workout" ShowRequiredMark=false OnValidSubmit="OnValidSubmit" DisableAutoSubmitFormByEnter="true">
+
+                    <div class="mb-3">
+                        <BootstrapInput class="form-control" @bind-Value="Workout.Name" />
+                    </div>
+
+                    <div class="mb-3">
+                        <BootstrapInput class="form-control" @bind-Value="Workout.Description" />
+                    </div>
+
+                    <div class="mb-3">
+                        <Checkbox TValue="bool" DisplayText="Rest day" ShowLabel="true" @bind-Value="Workout.IsRest" OnStateChanged="@OnWorkoutTypeChanged" />
+                    </div>
+
+                    <div class="mb-3">
+                        <InputNumber id="dayNumber" class="form-control" @bind-Value="Workout.DayNumber" />
+                    </div>
+
+                    <div class="col-12">
+                        <button type="button" class="btn btn-secondary" @onclick="OnCancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </ValidateForm>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
+}

@@ -1,24 +1,25 @@
 ﻿@using WorkoutPlanner.DataObject
+@using WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder;
 
 @if (!Initialised)
 {
     <div class="row placeholder-glow">
-                <a class="nav-link active placeholder col-1"></a>
-                <a class="nav-link text-body-secondary placeholder col-1"></a>
+        <a class="nav-link active placeholder col-1"></a>
+        <a class="nav-link text-body-secondary placeholder col-1"></a>
         <div class="placeholder col-1 ms-auto"></div>
     </div>
 }
 else
 {
-    @if (Phase !=null)
+    @if (Phase != null)
     {
         <div class="row">
             <ul class="nav nav-underline col pe-0">
                 <li class="nav-item">
-                    <a class="nav-link active">@Phase.Name</a>
+                    <a class="nav-link @(!IsWorkoutOverview ? "active" : "text-body-secondary")">@Phase.Name</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body-secondary">Workout overview</a>
+                    <a class="nav-link @(IsWorkoutOverview ? "active" : "text-body-secondary")">Workout overview</a>
                 </li>
                 <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
             </ul>
@@ -42,23 +43,57 @@ else
                 <div class="list-group rounded-top-0">
                     @foreach (var phase in Program.Phases)
                     {
-                        <div class="list-group-item d-flex @(string.Equals(phase.Id, Phase.Id)? "bg-primary-subtle" : "")" @onclick="(()=>SelectPhase(phase))">
-                            <div class=" d-flex flex-column">
-                                <h3 class="text-wrap text-body">@phase.Name</h3>
+                        @if (Phase != null)
+                        {
+                            <div class="list-group-item d-flex @(string.Equals(phase.Id, Phase.Id)? "bg-primary-subtle" : "")" @onclick="(()=>SelectPhase(phase))">
+                                <div class=" d-flex flex-column">
+                                    <h3 class="text-wrap text-body">@phase.Name</h3>
 
-                                <p class="text-body-secondary">@phase.Cycle week(s)</p>
-                            </div>
-                            <div class="ms-auto my-auto">
+                                    <p class="text-body-secondary">@phase.Cycle week(s)</p>
+                                </div>
+                                <div class="ms-auto my-auto">
 
-                                                    <PhaseEditView Program="Program" Phase=phase OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
+                                    <PhaseEditView Program="Program" Phase=phase OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="list-group-item d-flex" @onclick="(()=>SelectPhase(phase))">
+                                <div class=" d-flex flex-column">
+                                    <h3 class="text-wrap text-body">@phase.Name</h3>
+
+                                    <p class="text-body-secondary">@phase.Cycle week(s)</p>
+                                </div>
+                                <div class="ms-auto my-auto">
+
+                                    <PhaseEditView Program="Program" Phase=phase OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
+                                </div>
+                            </div>
+                        }
                     }
                     <div class="list-group-item">
-                                <PhaseEditView Program="Program" OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
+                        <PhaseEditView Program="Program" OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @if (Phase != null && !IsWorkoutOverview)
+    {
+        <div class="row">
+            <div class="col-12">
+                <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
+            </div>
+        </div>
+    }
+    else if (IsWorkoutOverview)
+    {
+        <div class="row">
+            <div class="col-12">
+                <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
+            </div>
+        </div>
+    }
 }

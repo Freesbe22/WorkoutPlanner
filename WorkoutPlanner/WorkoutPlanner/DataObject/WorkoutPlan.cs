@@ -11,7 +11,6 @@ namespace WorkoutPlanner.DataObject
         [FirestoreDocumentId]
         public string Id { get; set; }             // Identifiant unique du programme
         [FirestoreProperty]
-        [Display(Name ="Name")]
         [Required]
         public string Name { get; set; }           // Nom du programme (ex: "Prise de masse 12 semaines")
         [FirestoreProperty]

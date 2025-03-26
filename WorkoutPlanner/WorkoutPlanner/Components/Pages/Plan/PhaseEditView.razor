@@ -13,7 +13,7 @@ else
         <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.ExtraLarge"></Button>
     }
 
-    <Modal @ref="Modal">
+    <Modal @ref="ModalPhase">
         <ModalDialog ShowFooter=false ShowHeader=false>
             <BodyTemplate>
                 <ValidateForm Model="Phase" ShowRequiredMark=false OnValidSubmit="OnValidSubmit" DisableAutoSubmitFormByEnter="true">
@@ -27,8 +27,8 @@ else
                         <Select Items="ScheduleTypes" OnSelectedItemChanged="OnScheduleTypeChanged" @bind-Value="Phase.ScheduleType"></Select>
                     </div>
                     <div class="col-12">
-                        <Button ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.None" Color="Color.Secondary" Text="Cancel" OnClick="OnCancel"></Button>
-                        <Button ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.None" Color="Color.Primary" Text="Submit" IsAsync="true"></Button>
+                <button type="button" class="btn btn-secondary" @onclick="OnCancel">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </ValidateForm>
             </BodyTemplate>

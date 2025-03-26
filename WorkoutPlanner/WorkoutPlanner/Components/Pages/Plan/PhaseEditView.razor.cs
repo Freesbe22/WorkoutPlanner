@@ -25,7 +25,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
 
         private bool Initialised { get; set; } = false;
         private bool IsEdit { get; set; } = true;
-        private Modal Modal { get; set; }= new Modal();
+        private Modal ModalPhase { get; set; }= new Modal();
         private IEnumerable<SelectedItem> ScheduleTypes { get; set; }
         #endregion
 
@@ -55,7 +55,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
         #region Events
         private void ToggleModal()
         {
-            Modal.Toggle();
+            ModalPhase.Toggle();
         }
 
         private Task OnScheduleTypeChanged(SelectedItem item)
@@ -70,12 +70,12 @@ namespace WorkoutPlanner.Components.Pages.Plan
                 Program.Phases.Add(Phase);
             }
             await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id),Program);
-            Modal.Close();
+            ModalPhase.Close();
             OnPhaseChange.InvokeAsync();
         }
         private async Task OnCancel()
         {
-            Modal.Close();
+            ModalPhase.Close();
             await Task.Delay(1);
         }
         #endregion

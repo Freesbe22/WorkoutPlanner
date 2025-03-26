@@ -7,14 +7,14 @@ else
 {
     @if (IsEdit)
     {
-        <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-primary-emphasis"><i class="bi bi-plus-circle"></i> Add a program</Button>
+        <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.Medium"></Button>
     }
     else
     {
         <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-primary-emphasis"><i class="bi bi-plus-circle"></i> Add a program</Button>
     }
 
-    <Modal @ref="Modal">
+    <Modal @ref="ModalPlan">
         <ModalDialog ShowFooter=false ShowHeader=false>
             <BodyTemplate>
                 <ValidateForm Model="Program" OnValidSubmit="OnValidSubmit" DisableAutoSubmitFormByEnter="true" >
