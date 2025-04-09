@@ -6,7 +6,7 @@ using WorkoutPlanner.Tools.Auth;
 
 namespace WorkoutPlanner.Components.Pages.Auth
 {
-    partial class RegisterView : ComponentBase
+    partial class SignUpView : ComponentBase
     {
         #region Variables
         [Inject]

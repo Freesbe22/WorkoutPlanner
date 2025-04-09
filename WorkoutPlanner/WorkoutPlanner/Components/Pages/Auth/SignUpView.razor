@@ -1,6 +1,7 @@
-﻿@page "/register"
+﻿@page "/signup"
+@layout WorkoutPlanner.Components.Layout.LoginLayout
 
-<div class="row g-3">
+@* <div class="row g-3">
     <NavLink href="login"><i class="btn btn-outline-secondary bi bi-chevron-left"></i></NavLink>
     <ValidateForm Model="@RegisterModel" OnValidSubmit="((e)=>Register())" >
         <div class="row g-3">
@@ -24,4 +25,23 @@
             </div>
         </div>
     </ValidateForm>
+</div> *@
+<div class="card p-3">
+    <NavLink href="login"><i class="btn btn-outline-secondary bi bi-chevron-left"></i></NavLink>
+    <ValidateForm Model="@RegisterModel" OnValidSubmit="((e)=>Register())">
+        <p class="form-title">@Localizer["fui_title_register_email"]</p>
+        <div class="input-container">
+            <BootstrapInput @bind-Value="@RegisterModel.Email" DisplayText="@Localizer["fui_email_hint"]" />
+        </div>
+        <div class="input-container">
+            <BootstrapInput @bind-Value="@RegisterModel.Password" DisplayText="@Localizer["fui_password_hint"]" type="password" />
+        </div>
+        <div class="input-container">
+            <BootstrapInput @bind-Value="@RegisterModel.PasswordConfirm" DisplayText="@Localizer["fui_password_hint"]" type="password" />
+        </div>
+
+        <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid faRegistery-disk" Text="@Localizer["fui_title_register_email"]" IsAsync="true" class="submit mt-3"></Button>
+
+    </ValidateForm>
 </div>
+
