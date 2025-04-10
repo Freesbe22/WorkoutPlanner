@@ -1,10 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="container vh-100">
+<div class="container-fluid vh-100 bg-primary" data-bs-theme="dark">
     <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
         <Authorized>
             <NavMenu />
         </Authorized>
     </Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
-            @Body
+    <div class="p-2 px-lg-4">
+        @Body
+    </div>
 </div>

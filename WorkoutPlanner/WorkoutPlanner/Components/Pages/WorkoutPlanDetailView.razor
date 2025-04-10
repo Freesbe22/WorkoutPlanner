@@ -1,20 +1,6 @@
 ﻿@page "/workout"
 @attribute [Authorize]
 
-<div class="row">
-    <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link">Active</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active ">Mon Programme</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link">Link</a>
-        </li>
-    </ul>
-</div>
-
 @if (!Initialised)
 {
     <div class="row">
@@ -33,25 +19,16 @@ else if (Programs.Count < 1 && Initialised)
 else
 {
     <div class="row">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@Program.Name</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">@Program.Goal.ToString()</h6>
+        <div class="card rounded-4 flex-row text-bg-tertiary">
+            <div class="card-body ps-0">
+                <h3 class="card-title">@Program.Name</h3>
+                <h6 class="card-subtitle">@Program.Goal.ToString()</h6>
+            </div>
+            <div class="ms-auto my-auto">
+                <WorkoutPlanner.Components.Pages.WorkoutPlanEditView OnProgramChange="(()=>OnProgramChanged())" Program="Program"></WorkoutPlanner.Components.Pages.WorkoutPlanEditView>
             </div>
         </div>
     </div>
 
     <WorkoutPlanner.Components.Pages.Plan.PhaseListView Program="@Program" OnPhaseChange="(()=>OnProgramChanged())"></WorkoutPlanner.Components.Pages.Plan.PhaseListView>
 }
-
-@* @if (Exercises.Count <= 0 )
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-<Virtualize Items="@Exercises">
-   <em>@context.Name</em>
-   <hr/>
-</Virtualize>
-} *@

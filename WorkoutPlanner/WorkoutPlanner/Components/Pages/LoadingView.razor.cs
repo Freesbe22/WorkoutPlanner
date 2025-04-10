@@ -1,5 +1,6 @@
 ﻿using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace WorkoutPlanner.Components.Pages
 {
@@ -10,13 +11,14 @@ namespace WorkoutPlanner.Components.Pages
         [Inject]
         public FirebaseAuthClient AuthClient { get; set; }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
 #if DEBUG
             //AuthClient.SignOut();
             //InvokeAsync(() => { StateHasChanged(); });
 #endif
-            //NavManager.NavigateTo("/workout", replace: true);
+            await Task.Delay(3000);
+            NavManager.NavigateTo("/workout", replace: true);
         }
     }
 }

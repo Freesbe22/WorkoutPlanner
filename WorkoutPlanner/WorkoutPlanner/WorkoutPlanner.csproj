@@ -64,6 +64,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Remove="compilerconfig.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="BootstrapBlazor" Version="9.4.8" />
         <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
         <PackageReference Include="Google.Cloud.Firestore" Version="3.10.0" />
@@ -77,6 +81,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="compilerconfig.json" />
       <None Include="wwwroot\image\bootstrap_icons\plus-circle.svg" />
     </ItemGroup>
 

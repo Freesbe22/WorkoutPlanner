@@ -1,4 +1,5 @@
-﻿using Firebase.Auth;
+﻿using BootstrapBlazor.Components;
+using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
@@ -19,7 +20,8 @@ namespace WorkoutPlanner.Components.Pages.Auth
         private IStringLocalizer<AppResources> Localizer { get; set; }
         private RegisterViewModel RegisterModel { get; set; } = new RegisterViewModel();
         private bool Initialised { get; set; } = false;
-        private string Error { get; set; }
+        [Inject]
+        private MessageService MessageService { get; set; }
         #endregion
 
         #region Loading
@@ -41,7 +43,19 @@ namespace WorkoutPlanner.Components.Pages.Auth
             }
             catch (FirebaseAuthHttpException ex)
             {
-                Error = FirebaseErrorLookup.LookupError(ex);
+                await MessageService.Show(new MessageOption()
+                {
+                    Content = FirebaseErrorLookup.LookupError(ex),
+                    Icon = "fa-solid fa-circle-xmark",
+                    ShowDismiss = true,
+                    IsAutoHide = false,
+                    Color = BootstrapBlazor.Components.Color.Danger,
+                    OnDismiss = () =>
+                    {
+                        return Task.CompletedTask;
+                    }
+                });
+                //Error = FirebaseErrorLookup.LookupError(ex);
             }
         }
 

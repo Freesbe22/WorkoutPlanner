@@ -21,7 +21,7 @@ else
                 <li class="nav-item">
                     <a class="nav-link @(IsWorkoutOverview ? "active" : "text-body-secondary")">Workout overview</a>
                 </li>
-                <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
+                <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" type="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
             </ul>
         </div>
     }
@@ -80,20 +80,16 @@ else
         </div>
     </div>
 
-    @if (Phase != null && !IsWorkoutOverview)
-    {
-        <div class="row">
-            <div class="col-12">
+    <div class="row">
+        <div class="col-12 px-0">
+            @if (Phase != null && !IsWorkoutOverview)
+            {
                 <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
-            </div>
-        </div>
-    }
-    else if (IsWorkoutOverview)
-    {
-        <div class="row">
-            <div class="col-12">
+            }
+            else if (IsWorkoutOverview)
+            {
                 <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
-            </div>
+            }
         </div>
-    }
+    </div>
 }
