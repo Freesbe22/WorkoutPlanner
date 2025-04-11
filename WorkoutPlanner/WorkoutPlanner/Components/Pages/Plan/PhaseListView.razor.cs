@@ -2,7 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.DataObject.Enum;
+using WorkoutPlanner.Components.Shared.SwipeArea;
 using WorkoutPlanner.Tools.Services;
+using SwipeDirection = WorkoutPlanner.Components.Shared.SwipeArea.SwipeDirection;
 
 namespace WorkoutPlanner.Components.Pages.Plan
 {
@@ -35,6 +37,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
         private async Task Load()
         {
             await SelectPhase(Program.UserId);
+            Workout = Phase.Workouts.FirstOrDefault(workout => workout.IsRest == false);
         }
 
         protected async Task OnWorkoutSelected(Workout workout)
@@ -138,5 +141,20 @@ namespace WorkoutPlanner.Components.Pages.Plan
             Phase = phase;
         }
         #endregion
+        private bool _drawerOpen;
+
+        public void OnSwipeEnd(SwipeEventArgs e)
+        {
+            if (e.SwipeDirection == SwipeDirection.LeftToRight && !_drawerOpen)
+            {
+                _drawerOpen = true;
+                StateHasChanged();
+            }
+            else if (e.SwipeDirection == SwipeDirection.RightToLeft && _drawerOpen)
+            {
+                _drawerOpen = false;
+                StateHasChanged();
+            }
+        }
     }
 }

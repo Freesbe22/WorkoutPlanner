@@ -79,8 +79,8 @@ else
             </div>
         </div>
     </div>
-
-    <div class="row">
+    @* Version de base *@
+    @* <div class="row">
         <div class="col-12 px-0">
             @if (Phase != null && !IsWorkoutOverview)
             {
@@ -91,5 +91,18 @@ else
                 <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
             }
         </div>
-    </div>
+    </div> *@
+
+    <MudSwipeArea OnSwipeEnd="@OnSwipeEnd">
+        <div class="row">
+            <div class="col-12 px-0">
+                <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 px-0">
+                <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
+            </div>
+        </div>
+        </MudSwipeArea>
 }

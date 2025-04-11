@@ -1,0 +1,7 @@
+﻿    @* Sourced from MudBlazor (https://mudblazor.com/) *@
+<div @ref="_componentRef" class="@Classname" style="@this.Style"
+     @onpointerdown="OnPointerDown" @onpointerdown:stopPropagation="true"
+     @onpointerup="OnPointerUp" @onpointerup:stopPropagation="true"
+     @onpointercancel="OnPointerCancel" @onpointercancel:stopPropagation="true">
+    @ChildContent
+</div>
