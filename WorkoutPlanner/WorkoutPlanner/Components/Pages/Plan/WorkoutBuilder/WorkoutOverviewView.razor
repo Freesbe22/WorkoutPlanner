@@ -1,5 +1,5 @@
 ﻿
-<div class="container bg-dark w-100 h-100">
+<div class="container-fluid bg-dark pt-3 pb-1">
     @if (!Initialised)
     {
         <div class="card mb-3">
@@ -13,8 +13,8 @@
     {
         @foreach (var section in Workout.Sections)
         {
-            <div class="card mb-3">
-                <div class="card-subtitle">
+            <div class="card mb-3 bg-secondary px-1">
+                <div class="card-subtitle mt-1">
                     @(section.Section.ToString())
                 </div>
                 @foreach (var exercise in section.Exercises)

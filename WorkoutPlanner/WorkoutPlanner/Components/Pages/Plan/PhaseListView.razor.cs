@@ -136,25 +136,35 @@ namespace WorkoutPlanner.Components.Pages.Plan
         #endregion
 
         #region Events
+
         private void SelectPhase(ProgramPhase phase)
         {
             Phase = phase;
         }
-        #endregion
-        private bool _drawerOpen;
+
+        public void WorkoutOverviewTogle(bool isWorkoutOverview)
+        {
+                IsWorkoutOverview = isWorkoutOverview;
+                StateHasChanged();
+        }
 
         public void OnSwipeEnd(SwipeEventArgs e)
         {
-            if (e.SwipeDirection == SwipeDirection.LeftToRight && !_drawerOpen)
+            if (e.SwipeDirection == SwipeDirection.LeftToRight && IsWorkoutOverview)
             {
-                _drawerOpen = true;
-                StateHasChanged();
+                WorkoutOverviewTogle(false);
             }
-            else if (e.SwipeDirection == SwipeDirection.RightToLeft && _drawerOpen)
+            else if (e.SwipeDirection == SwipeDirection.RightToLeft && !IsWorkoutOverview)
             {
-                _drawerOpen = false;
-                StateHasChanged();
+                WorkoutOverviewTogle(true);
             }
         }
+
+        public void OnNavClicked(bool isWorkoutOverview)
+        {
+            WorkoutOverviewTogle(isWorkoutOverview);
+        }
+
+        #endregion
     }
 }

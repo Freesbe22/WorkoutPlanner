@@ -13,7 +13,7 @@ else
     {
         @foreach (var workout in Phase.Workouts)
         {
-                        <div class="card mb-3" @onclick="(()=> OnWorkoutClick(workout))">
+                        <div class="card mb-3 bg-secondary text-light" @onclick="(()=> OnWorkoutClick(workout))">
                         <div class="row g-0">
                             <div class="col-md-4">
                             <img src="..." class="img-fluid rounded-start" alt="...">
@@ -33,7 +33,7 @@ else
                 </div>
         }
     }
-        <div class="card mb-3">
+    <div class="card mb-3 bg-secondary">
             <div class="row g-0">
                 <WorkoutEditView Phase="@Phase" OnWorkoutChange="(()=>OnWorkoutChanged())"></WorkoutEditView>
             </div>

@@ -16,6 +16,8 @@ $warning: #C57C12;
 $danger: #F44336;
 $dark: #191C1D ;
 
+$enable-negative-margins: true;
+
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "bootstrap/variables";
 @import "bootstrap/variables-dark";
@@ -69,10 +71,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 // 8. Add additional custom code here
 
-
-
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#app, body > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 a, .btn-link {

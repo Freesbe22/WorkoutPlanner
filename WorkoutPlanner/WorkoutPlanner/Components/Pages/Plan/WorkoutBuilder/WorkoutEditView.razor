@@ -6,11 +6,11 @@ else
 {
     @if (!IsEdit)
     {
-        <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-primary-emphasis"><i class="bi bi-plus-circle"></i> Add a workout</Button>
+        <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-light"><i class="bi bi-plus-circle"></i> Add a workout</Button>
     }
     else
     {
-        <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.ExtraLarge"></Button>
+        <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.ExtraLarge" class="text-light"></Button>
     }
 
     <Modal @ref="ModalWorkout">
