@@ -24,6 +24,7 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
 
         private bool Initialised { get; set; } = false;
         private bool IsEdit { get; set; } = true;
+        private bool IsModalVisible { get; set; } = false;
         private Modal ModalWorkout { get; set; }= new Modal();
         #endregion
 
@@ -68,7 +69,8 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
         #region Events
         private void ToggleModal()
         {
-            ModalWorkout.Toggle();
+            //ModalWorkout.Toggle();
+            IsModalVisible = !IsModalVisible;
         }
 
         private Task OnWorkoutTypeChanged(CheckboxState state, bool value)

@@ -1,8 +1,8 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="d-flex flex-column h-100 bg-primary">
-    <div class="p-2 px-lg-4 flex-fill d-flex flex-column overflow-auto">
+<div class="flex flex-col h-full bg-background">
+    <div class="p-2 lg:px-4 grow flex flex-col overflow-y-auto space-y-2">
         @Body
     </div>
     <NavMenu />
-    </div>
+</div>

@@ -3,38 +3,39 @@
 
 @if (!Initialised)
 {
-    <div class="row placeholder-glow">
-        <a class="nav-link active placeholder col-1"></a>
-        <a class="nav-link text-body-secondary placeholder col-1"></a>
-        <div class="placeholder col-1 ms-auto"></div>
+    <div class="flex items-center justify-around animate-pulse mt-2">
+        <div class="h-2 w-40 rounded bg-gray-200"></div>
+        <div class="h-2 w-40 rounded bg-gray-200"></div>
+        <div class="h-2 w-8 rounded bg-gray-200"></div>
     </div>
 }
 else
 {
-    <div class="row">
+    <div class="flex justify-around text-text-muted">
         @if (Phase != null)
         {
-            <ul class="nav nav-underline col-12 pe-0">
-                <li class="nav-item">
-                    <a class="nav-link @(!IsWorkoutOverview ? "active" : "text-body-secondary")" @onclick="(()=>OnNavClicked(false))">@Phase.Name</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @(IsWorkoutOverview ? "active" : "text-body-secondary")" @onclick="(()=>OnNavClicked(true))">Workout overview</a>
-                </li>
-                <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" type="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
-            </ul>
+            <div class="flex content-start space-x-4 w-full">
+                <a class="@(!IsWorkoutOverview ? "text-text border-b-2 border-(--color-text)" : "")" @onclick="(()=>OnNavClicked(false))">@Phase.Name</a>
+                <a class="@(IsWorkoutOverview ? "text-text border-b-2 border-(--color-text)" : "")" @onclick="(()=>OnNavClicked(true))">Workout overview</a>
+
+            </div>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg " viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
+            </button>
         }
         else
         {
-            <ul class="nav nav-underline col-12 pe-0">
-                <li class="nav-item">
-                    <a class="nav-link active">No active phase</a>
-                </li>
-                <a class="ms-auto btn btn-primary" data-bs-toggle="collapse" href="#collapsePhases" role="button" aria-expanded="false" aria-controls="collapsePhases"><i class="bi bi-chevron-double-down  ms-auto"></i></a>
-            </ul>
+            <a class="text-text border-b-2 border-(--color-text)">No active phase</a>
+            <button class="ml-auto mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
+            </button>
         }
 
-        <div class="col-12 px-0">
+        @* <div class="col-12 px-0">
             <div class="collapse" id="collapsePhases">
                 <div class="list-group rounded-top-0">
                     @foreach (var phase in Program.Phases)
@@ -73,7 +74,7 @@ else
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
     </div>
     @* Version de base *@
     @* <div class="row">
@@ -88,16 +89,12 @@ else
             }
         </div>
     </div> *@
-    <MudSwipeArea OnSwipeEnd="@OnSwipeEnd" Class="w-100 flex-grow-1">
-            <div class="row @(IsWorkoutOverview ? "d-none" : "")">
-                <div class="col-12 px-0">
-                    <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
-                </div>
-            </div>
-            <div class="row @(!IsWorkoutOverview ? "d-none" : "")">
-                <div class="col-12 px-0">
-                    <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
-                </div>
-            </div>
-        </MudSwipeArea>
+    <MudSwipeArea OnSwipeEnd="@OnSwipeEnd" Class="w-full grow">
+        <div class="@(IsWorkoutOverview ? "hidden" : "")">
+            <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
+        </div>
+        <div class="@(!IsWorkoutOverview ? "hidden" : "")">
+            <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
+        </div>
+    </MudSwipeArea>
 }

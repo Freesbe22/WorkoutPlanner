@@ -1,16 +1,17 @@
 ﻿@page "/workout"
+@* @layout WorkoutPlanner.Components.Layout.WIPLayout *@
 @attribute [Authorize]
 @using WorkoutPlanner.Components.Pages;
 @using WorkoutPlanner.Components.Pages.Plan;
 
 @if (!Initialised)
 {
-    <div class="card mx-n3">
-            <div class="card-body placeholder-glow">
-                <h5 class="card-title placeholder col-10"></h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary placeholder col-6"></h6>
-            </div>
+    <div class="bg-gray-600 rounded-xl p-4 flex justify-between items-center">
+        <div class="animate-pulse ">
+            <div class="h-2 w-80 rounded bg-gray-200"></div>
+            <div class="h-2 w-40 rounded bg-gray-200"></div>
         </div>
+    </div>
 }
 else if (Programs.Count < 1 && Initialised)
 {
@@ -18,15 +19,15 @@ else if (Programs.Count < 1 && Initialised)
 }
 else
 {
-        <div class="card rounded-4 flex-row text-bg-tertiary mx-n3 px-3">
-            <div class="card-body ps-0">
-                <h3 class="card-title">@Program.Name</h3>
-                <h6 class="card-subtitle">@Program.Goal.ToString()</h6>
-            </div>
-            <div class="ms-auto my-auto">
-                <WorkoutPlanEditView OnProgramChange="(()=>OnProgramChanged())" Program="Program"></WorkoutPlanEditView>
-            </div>
+    <div class="bg-gray-600 rounded-xl p-4 flex justify-between items-center">
+        <div>
+            <h3 class="font-semibold text-base text-text">@Program.Name</h3>
+            <h6 class="text-sm text-text">@Program.Goal.ToString()</h6>
         </div>
+        <div class="ml-auto my-auto">
+            @* <WorkoutPlanEditView OnProgramChange="(()=>OnProgramChanged())" Program="Program"></WorkoutPlanEditView> *@
+        </div>
+    </div>
 
     <PhaseListView Program="@Program" OnPhaseChange="(()=>OnProgramChanged())"></PhaseListView>
 }
