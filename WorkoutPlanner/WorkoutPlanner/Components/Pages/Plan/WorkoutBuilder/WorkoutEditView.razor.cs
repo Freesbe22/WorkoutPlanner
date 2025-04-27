@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
+using WorkoutPlanner.Components.Shared.EditModal;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.DataObject.Enum;
 using WorkoutPlanner.Tools.Services;
@@ -24,8 +25,7 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
 
         private bool Initialised { get; set; } = false;
         private bool IsEdit { get; set; } = true;
-        private bool IsModalVisible { get; set; } = false;
-        private Modal ModalWorkout { get; set; }= new Modal();
+        private EditModal ModalWorkout { get; set; }= new EditModal();
         #endregion
 
         #region Loading
@@ -67,10 +67,10 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
         #endregion
 
         #region Events
-        private void ToggleModal()
+        private async Task ToggleModal()
         {
-            //ModalWorkout.Toggle();
-            IsModalVisible = !IsModalVisible;
+            ModalWorkout.Toggle();
+            await InvokeAsync(() => { StateHasChanged(); });
         }
 
         private Task OnWorkoutTypeChanged(CheckboxState state, bool value)
@@ -84,13 +84,14 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
             {
                 Phase.Workouts.Add(Workout);
             }
-            await ModalWorkout.Close();
+            ModalWorkout.Toggle();
             await OnWorkoutChange.InvokeAsync();
         }
 
         private async Task OnCancel()
         {
-            await ModalWorkout.Close();
+            ModalWorkout.Toggle();
+            await InvokeAsync(() => { StateHasChanged(); });
         }
         #endregion
     }
