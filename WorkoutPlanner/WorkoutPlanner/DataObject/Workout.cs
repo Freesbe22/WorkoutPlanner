@@ -21,8 +21,6 @@ namespace WorkoutPlanner.DataObject
         [FirestoreProperty]
         public int DayNumber { get; set; }      // Jour dans la phase (ex: 1, 2, 3...)
         [FirestoreProperty]
-        public bool IsRest { get; set; }   // Normal ou RestDay
-        [FirestoreProperty]
         public List<WorkoutSectionDetails> Sections { get; set; } // Liste des IDs des phases du programme
     }
 }
