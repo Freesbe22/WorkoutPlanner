@@ -1,24 +1,34 @@
 ﻿@page "/login"
 @layout WorkoutPlanner.Components.Layout.LoginLayout
 
-<div class="flex flex-col border border-(--color-subtext) rounded-md p-4">
-    <ValidateForm Model="@SignInModel" OnValidSubmit="((e)=>SignIn())">
-        <p class="form-title">@Localizer["fui_sign_in_default"]</p>
-    <div class="input-container">
-        <BootstrapInput @bind-Value="@SignInModel.Email" DisplayText="@Localizer["fui_email_hint"]" />
+<EditForm Model="@SignInModel" OnValidSubmit="@SignIn" class="form_container">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="title_container">
+        <p class="title">@Localizer["fui_sign_in_default"]</p>
     </div>
-    <div class="input-container">
-        <BootstrapInput @bind-Value="@SignInModel.Password" DisplayText="@Localizer["fui_password_hint"]" type="password" />
+    <div class="input_container">
+        <label for="email_field" class="input_label">@Localizer["fui_email_hint"]</label>
+
+        <InputText @bind-Value="SignInModel.Email" class="input_field" id="email_field" />
+    </div>
+    <div class="input_container">
+        <label class="input_label" for="password_field">@Localizer["fui_password_hint"]</label>
+
+        <InputText @bind-Value="SignInModel.Password" class="input_field" id="password_field" type="password" />
     </div>
 
-    <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["fui_sign_in_default"]" IsAsync="true" class="submit mt-3"></Button>
+    <button type="submit" class="sign-in_btn">
+        <span>@Localizer["fui_sign_in_default"]</span>
+    </button>
 
-    <p class="signup-link pt-2">
-            @Localizer["fui_trouble_signing_in"]
+    <div class="separator">
+        <hr class="line">
+    </div>
 
-        <NavLink href="signup">@Localizer["fui_title_register_email"]</NavLink>
+    <p class="text-text-muted pt-2 text-wrap max-w-60">
+        @Localizer["fui_trouble_signing_in"]
+
+        <NavLink href="signup" class="underline">@Localizer["fui_title_register_email"]</NavLink>
     </p>
-</ValidateForm>
-</div>
-
-                
+</EditForm>

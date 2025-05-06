@@ -1,7 +1,7 @@
 ﻿@page "/signup"
 @layout WorkoutPlanner.Components.Layout.LoginLayout
 
-<div class="flex flex-col border border-(--color-subtext) rounded-md p-4">
+@* <div class="flex flex-col border border-(--color-subtext) rounded-md p-4">
     <NavLink href="login"><i class="btn btn-outline-secondary bi bi-chevron-left"></i></NavLink>
     <ValidateForm Model="@RegisterModel" OnValidSubmit="((e)=>Register())">
         <p class="form-title">@Localizer["fui_title_register_email"]</p>
@@ -20,3 +20,41 @@
     </ValidateForm>
 </div>
 
+ *@
+
+<EditForm Model="@RegisterModel" OnValidSubmit="@Register" class="form_container">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="title_container">
+        <p class="title">@Localizer["fui_title_register_email"]</p>
+    </div>
+    <div class="input_container">
+        <label for="email_field" class="input_label">@Localizer["fui_email_hint"]</label>
+
+        <InputText @bind-Value="RegisterModel.Email" class="input_field" id="email_field" />
+    </div>
+    <div class="input_container">
+        <label class="input_label" for="password_field">@Localizer["fui_password_hint"]</label>
+
+        <InputText @bind-Value="RegisterModel.Password" class="input_field" id="password_field" type="password" />
+    </div>
+    <div class="input_container">
+        <label class="input_label" for="password_field">@Localizer["fui_password_hint"]</label>
+
+        <InputText @bind-Value="RegisterModel.Password" class="input_field" id="password_field" type="password" />
+    </div>
+
+    <button type="submit" class="sign-in_btn">
+        <span>@Localizer["fui_title_register_email"]</span>
+    </button>
+
+    <div class="separator">
+        <hr class="line">
+    </div>
+
+    <p class="text-text-muted pt-2 text-wrap max-w-60">
+        <NavLink href="login" class="underline">
+            @Localizer["fui_sign_in_default"]
+        </NavLink>
+    </p>
+</EditForm>

@@ -14,7 +14,7 @@ namespace WorkoutPlanner.Components.Pages
         protected override async Task OnInitializedAsync()
         {
 #if DEBUG
-            //AuthClient.SignOut();
+            AuthClient.SignOut();
             //InvokeAsync(() => { StateHasChanged(); });
 #endif
             await Task.Delay(3000);

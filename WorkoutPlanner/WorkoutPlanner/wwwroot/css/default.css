@@ -17,6 +17,32 @@
     --color-border: #2c2c2c;
 }
 
+@layer components {
+    .text-body {
+        @apply text-sm/5 font-normal text-text;
+    }
+
+    .text-title {
+        @apply text-xl/7 font-medium text-text;
+    }
+
+    .text-display {
+        @apply text-[32px]/10 font-bold text-text;
+    }
+
+    .text-heading {
+        @apply text-2xl/8 font-medium text-text;
+    }
+
+    .text-caption {
+        @apply text-xs/4 font-normal text-text;
+    }
+
+    .text-caption {
+        @apply text-base/6 font-normal text-text;
+    }
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
