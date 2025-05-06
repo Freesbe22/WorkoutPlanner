@@ -4,6 +4,7 @@
 <EditForm Model="@SignInModel" OnValidSubmit="@SignIn" class="form_container">
     <DataAnnotationsValidator />
     <ValidationSummary />
+    @(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name)
     <div class="title_container">
         <p class="title">@Localizer["fui_sign_in_default"]</p>
     </div>
