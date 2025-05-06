@@ -32,7 +32,9 @@ namespace WorkoutPlanner.Tools.Services
                         new EnumJsonConverter<WorkoutPlanGoal>(),
                         new EnumJsonConverter<ScheduleType>(),
                     },
-                    JsonCredentials = await Secret.FirestoreCredentialsAsync()
+                    JsonCredentials = await Secret.FirestoreCredentialsAsync(),
+                    
+                    
                 }.Build();
             }
         }

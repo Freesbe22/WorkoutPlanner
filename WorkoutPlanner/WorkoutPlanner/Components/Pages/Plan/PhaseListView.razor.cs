@@ -37,7 +37,8 @@ namespace WorkoutPlanner.Components.Pages.Plan
         private async Task Load()
         {
             await SelectPhase(Program.UserId);
-            Workout = Phase.Workouts.FirstOrDefault(workout => workout.IsRest == false);
+            //Workout = Phase.Workouts.FirstOrDefault(workout => workout.IsRest == false);
+            Workout = Phase.Workouts.FirstOrDefault();
         }
 
         protected async Task OnWorkoutSelected(Workout workout)
@@ -61,9 +62,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
             {
                 try
                 {
-                    maxWorkoutProgram += phase.Workouts.Where(
-                        workout => !workout.IsRest)
-                        .ToList().Count * phase.Cycle;
+                    maxWorkoutProgram += phase.Workouts.Count * phase.Cycle;
                 }
                 catch (Exception)
                 {
@@ -101,7 +100,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
                 try
                 {
                     lastPhase = phasesWithWorkout.Where(phase => phase.Workouts.Where(workout => workout.Id.Equals(workoutsOfProgram.First().WorkoutId)).ToList().Count > 0).First();
-                    maxWorkoutsOfPhase = lastPhase.Workouts.Where(workout => !workout.IsRest).ToList().Count * lastPhase.Cycle;
+                    maxWorkoutsOfPhase = lastPhase.Workouts.Count * lastPhase.Cycle;
 
                     lastPhase.Workouts.ForEach(workout => workoutFinishedInPhase += workoutsOfProgram.Where(workoutProgram => workoutProgram.WorkoutId.Equals(workout.Id)).ToList().Count);
                 }

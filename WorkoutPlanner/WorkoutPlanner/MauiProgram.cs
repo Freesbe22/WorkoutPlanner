@@ -32,7 +32,7 @@ public static class MauiProgram
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
             ApiKey = Secret.ApiKey,
-            AuthDomain = "thedreamlife-workoutplanner.firebaseapp.com",
+            AuthDomain = Secret.AuthDomain,
             Providers = new Firebase.Auth.Providers.FirebaseAuthProvider[]
             {
                 new EmailProvider()

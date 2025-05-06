@@ -1,30 +1,7 @@
 ﻿@page "/login"
 @layout WorkoutPlanner.Components.Layout.LoginLayout
-@* 
-<div class="row g-3">
-    <ValidateForm Model="@SignInModel" OnValidSubmit="((e)=>SignIn())">
-        <div class="row g-3">
-            <div class="col-12">
-                <BootstrapInput @bind-Value="@SignInModel.Email" DisplayText="@Localizer["fui_email_hint"]" />
-            </div>
-        </div>
-        <div class="row g-3">
-            <div class="col-12">
-                <BootstrapInput @bind-Value="@SignInModel.Password" DisplayText="@Localizer["fui_password_hint"]" type="password"/>
-            </div>
-        </div>
-        <div class="row g-3 form-inline mt-0">
-            <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["fui_sign_in_default"]" IsAsync="true"></Button>
-            </div>
-        </div>
-        <div class="row g-3 form-inline mt-0">
-            <NavLink href="register">@Localizer["fui_title_register_email"]</NavLink>
-        </div>
-    </ValidateForm>
-</div> *@
 
-<div class="card p-3">
+<div class="flex flex-col border border-(--color-subtext) rounded-md p-4">
     <ValidateForm Model="@SignInModel" OnValidSubmit="((e)=>SignIn())">
         <p class="form-title">@Localizer["fui_sign_in_default"]</p>
     <div class="input-container">
