@@ -266,6 +266,9 @@
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
+  .mt-auto {
+    margin-top: auto;
+  }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
   }
@@ -475,6 +478,12 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-\[url\(\/img\/mountains\.jpg\)\] {
+    background-image: url(/img/mountains.jpg);
+  }
+  .bg-fixed {
+    background-attachment: fixed;
   }
   .stroke-2 {
     stroke-width: 2;
