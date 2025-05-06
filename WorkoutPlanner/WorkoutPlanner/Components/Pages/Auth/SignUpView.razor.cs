@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using WorkoutPlanner.Tools.Auth;
@@ -19,16 +20,17 @@ namespace WorkoutPlanner.Components.Pages.Auth
         [Inject]
         private IStringLocalizer<AppResources> Localizer { get; set; }
         private RegisterViewModel RegisterModel { get; set; } = new RegisterViewModel();
-        private bool Initialised { get; set; } = false;
-        [Inject]
-        private MessageService MessageService { get; set; }
+
+        private EditContext _editContext;
+        private ValidationMessageStore _messageStore;
         #endregion
 
         #region Loading
         protected override async Task OnInitializedAsync()
         {
             CurrentUserCheck();
-            Initialised = true;
+            _editContext = new EditContext(RegisterModel);
+            _messageStore = new ValidationMessageStore(_editContext);
             await InvokeAsync(() => { StateHasChanged(); });
 
             await base.OnInitializedAsync();
@@ -43,19 +45,8 @@ namespace WorkoutPlanner.Components.Pages.Auth
             }
             catch (FirebaseAuthHttpException ex)
             {
-                await MessageService.Show(new MessageOption()
-                {
-                    Content = FirebaseErrorLookup.LookupError(ex),
-                    Icon = "fa-solid fa-circle-xmark",
-                    ShowDismiss = true,
-                    IsAutoHide = false,
-                    Color = BootstrapBlazor.Components.Color.Danger,
-                    OnDismiss = () =>
-                    {
-                        return Task.CompletedTask;
-                    }
-                });
-                //Error = FirebaseErrorLookup.LookupError(ex);
+                _messageStore.Add(new FieldIdentifier(RegisterModel, string.Empty), "Une erreur est survenue : " + FirebaseErrorLookup.LookupError(ex));
+                _editContext.NotifyValidationStateChanged();
             }
         }
 

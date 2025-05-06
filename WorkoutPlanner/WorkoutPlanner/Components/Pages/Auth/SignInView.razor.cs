@@ -1,10 +1,18 @@
 ﻿using BootstrapBlazor.Components;
+
 using Firebase.Auth;
+
+using Google.Rpc.Context;
+
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+
 using WorkoutPlanner.Tools.Auth;
+
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WorkoutPlanner.Components.Pages.Auth
@@ -19,24 +27,26 @@ namespace WorkoutPlanner.Components.Pages.Auth
         [Inject]
         public StateProvider AuthStateProvider { get; set; }
         [Inject]
-        private MessageService MessageService { get; set; }
-        [Inject]
         private IStringLocalizer<AppResources> Localizer { get; set; }
         private SignInViewModel SignInModel { get; set; } = new SignInViewModel();
-        private bool Initialised { get; set; } = false;
+
+        private EditContext _editContext;
+        private ValidationMessageStore _messageStore;
         #endregion
 
         #region Loading
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync ()
         {
             CurrentUserCheck();
-            Initialised = true;
+
+            _editContext = new EditContext(SignInModel);
+            _messageStore = new ValidationMessageStore(_editContext);
             await InvokeAsync(() => { StateHasChanged(); });
 
             await base.OnInitializedAsync();
         }
         #endregion
-        private async Task SignIn()
+        private async Task SignIn ()
         {
             try
             {
@@ -45,25 +55,18 @@ namespace WorkoutPlanner.Components.Pages.Auth
             }
             catch (FirebaseAuthHttpException ex)
             {
-                await MessageService.Show(new MessageOption()
-                {
-                    Content = FirebaseErrorLookup.LookupError(ex),
-                    Icon = "fa-solid fa-circle-xmark",
-                    ShowDismiss = true,
-                    Color = BootstrapBlazor.Components.Color.Danger,
-                    OnDismiss = () =>
-                    {
-                        return Task.CompletedTask;
-                    }
-                });
-                //Error = FirebaseErrorLookup.LookupError(ex);
+                _messageStore.Add(new FieldIdentifier(SignInModel, string.Empty), "Une erreur est survenue : " + FirebaseErrorLookup.LookupError(ex));
+                _editContext.NotifyValidationStateChanged();
             }
         }
 
-        private void CurrentUserCheck()
+        private void CurrentUserCheck ()
         {
 #if DEBUG
+            if (AuthClient.User != null)
+            {
                 //AuthClient.SignOut();
+            }
 #endif
             if (AuthClient.User != null)
             {

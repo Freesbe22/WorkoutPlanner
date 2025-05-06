@@ -272,3 +272,6 @@ dotnet_naming_style.begins_with___.required_prefix = _
 dotnet_naming_style.begins_with___.required_suffix = 
 dotnet_naming_style.begins_with___.word_separator = 
 dotnet_naming_style.begins_with___.capitalization = camel_case
+
+# CS8618: Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+dotnet_diagnostic.CS8618.severity = none

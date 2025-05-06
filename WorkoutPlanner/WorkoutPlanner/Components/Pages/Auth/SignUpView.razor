@@ -1,7 +1,7 @@
 ﻿@page "/signup"
 @layout WorkoutPlanner.Components.Layout.LoginLayout
 
-<EditForm Model="@RegisterModel" OnValidSubmit="@Register" class="form_container">
+<EditForm EditContext="@_editContext" OnValidSubmit="@Register" class="form_container">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="title_container">

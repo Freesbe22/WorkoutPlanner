@@ -196,7 +196,7 @@ a .nav-link, .btn-link .nav-link {
 .input_field {
     width: auto;
     height: 40px;
-    padding: 0 0 0 40px;
+    padding: 4px;
     border-radius: 7px;
     outline: none;
     border: 1px solid #e5e5e5;
