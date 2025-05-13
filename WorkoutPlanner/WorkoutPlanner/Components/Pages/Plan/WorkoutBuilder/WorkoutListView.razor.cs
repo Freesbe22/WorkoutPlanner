@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
+
+using WorkoutPlanner.Components.Pages.Execution;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.Tools;
 using WorkoutPlanner.Tools.Services;
@@ -19,6 +21,7 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
         [Parameter]
         public EventCallback<Workout> OnWorkoutSelected { get; set; }
         private bool Initialised { get; set; } = false;
+
         #endregion
 
         #region Loading
@@ -35,11 +38,12 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
             await InvokeAsync(() => { StateHasChanged(); });
         }
 
-        protected async Task OnWorkoutClick(Workout workout)
+        protected async Task OnWorkoutClick (Workout workout)
         {
             await OnWorkoutSelected.InvokeAsync(workout);
             await InvokeAsync(() => { StateHasChanged(); });
         }
+
         #endregion
     }
 }

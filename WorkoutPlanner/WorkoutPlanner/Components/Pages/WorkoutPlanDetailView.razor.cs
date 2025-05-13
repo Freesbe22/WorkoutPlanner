@@ -1,5 +1,7 @@
 ﻿using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
+
+using WorkoutPlanner.Components.Pages.Execution;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.Tools.Services;
 
@@ -16,6 +18,10 @@ namespace WorkoutPlanner.Components.Pages
         private WorkoutPlan? Program { get; set; }
         private ProgramPhase? Phase { get; set; }
         private bool Initialised { get; set; } = false;
+
+        public ExecutionModal ExecutionModal { get; set; } = new ExecutionModal();
+        private bool IsModalVisible { get; set; } = false;
+
         #endregion
 
         #region Loading
@@ -52,5 +58,11 @@ namespace WorkoutPlanner.Components.Pages
             Program = Programs.FirstOrDefault();
         }
         #endregion
+
+        private void Toggle ()
+        {
+            IsModalVisible = !IsModalVisible;
+            ExecutionModal.Toggle();
+        }
     }
 }
