@@ -2,6 +2,10 @@
 @layout WorkoutPlanner.Components.Layout.LoginLayout
 @attribute [Authorize]
 
-<div class="flex content-center items-center h-full">
-    <Spinner Size="Size.ExtraLarge" Color="Color.Info"></Spinner>
-</div>
+    <div class="text-center">
+        <div class="w-16 h-16 border-x-4 border-dashed rounded-full animate-spin border-(--color-primary) mx-auto"></div>
+        <h2 class="text-display mt-4">Loading...</h2>
+        <p class="text-title">
+            Your adventure is about to begin
+        </p>
+    </div>

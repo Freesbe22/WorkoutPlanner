@@ -33,6 +33,7 @@
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --animate-spin: spin 1s linear infinite;
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -250,6 +251,9 @@
       max-width: 96rem;
     }
   }
+  .mx-auto {
+    margin-inline: auto;
+  }
   .-my-4 {
     margin-block: calc(var(--spacing) * -4);
   }
@@ -264,6 +268,9 @@
   }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
+  }
+  .mt-4 {
+    margin-top: calc(var(--spacing) * 4);
   }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
@@ -307,6 +314,9 @@
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
+  }
   .h-100 {
     height: calc(var(--spacing) * 100);
   }
@@ -334,6 +344,9 @@
   .w-12 {
     width: calc(var(--spacing) * 12);
   }
+  .w-16 {
+    width: calc(var(--spacing) * 16);
+  }
   .w-40 {
     width: calc(var(--spacing) * 40);
   }
@@ -358,6 +371,9 @@
   .animate-pulse {
     animation: var(--animate-pulse);
   }
+  .animate-spin {
+    animation: var(--animate-spin);
+  }
   .resize {
     resize: both;
   }
@@ -366,9 +382,6 @@
   }
   .flex-row {
     flex-direction: row;
-  }
-  .content-center {
-    align-content: center;
   }
   .content-start {
     align-content: flex-start;
@@ -422,6 +435,9 @@
   .rounded {
     border-radius: 0.25rem;
   }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
+  }
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
@@ -438,9 +454,20 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-x-4 {
+    border-inline-style: var(--tw-border-style);
+    border-inline-width: 4px;
+  }
   .border-b-2 {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
+  }
+  .border-dashed {
+    --tw-border-style: dashed;
+    border-style: dashed;
+  }
+  .border-\(--color-primary\) {
+    border-color: var(--color-primary);
   }
   .border-\(--color-subtext\) {
     border-color: var(--color-subtext);
@@ -1020,6 +1047,11 @@ a .nav-link, .btn-link .nav-link {
 @property --tw-ease {
   syntax: "*";
   inherits: false;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes pulse {
   50% {
