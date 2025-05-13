@@ -11,6 +11,7 @@ namespace WorkoutPlanner.Components.Pages.Auth
     partial class SignUpView : ComponentBase
     {
         #region Variables
+
         [Inject]
         public FirebaseAuthClient AuthClient { get; set; }
         [Inject]
@@ -23,9 +24,11 @@ namespace WorkoutPlanner.Components.Pages.Auth
 
         private EditContext _editContext;
         private ValidationMessageStore _messageStore;
+
         #endregion
 
         #region Loading
+
         protected override async Task OnInitializedAsync()
         {
             CurrentUserCheck();
@@ -35,7 +38,9 @@ namespace WorkoutPlanner.Components.Pages.Auth
 
             await base.OnInitializedAsync();
         }
+
         #endregion
+
         private async Task Register()
         {
             try
@@ -60,6 +65,7 @@ namespace WorkoutPlanner.Components.Pages.Auth
         }
 
         #region Model
+
         public class RegisterViewModel
         {
             [Required(ErrorMessageResourceName = nameof(AppResources.fui_required_field), ErrorMessageResourceType = typeof(AppResources))]
@@ -77,6 +83,7 @@ namespace WorkoutPlanner.Components.Pages.Auth
             [Compare(nameof(Password))]
             public string PasswordConfirm { get; set; }
         }
+
         #endregion
     }
 }
