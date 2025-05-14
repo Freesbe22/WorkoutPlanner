@@ -1,8 +1,5 @@
 ﻿@page "/welcome"
-@* @layout WorkoutPlanner.Components.Layout.WIPLayout *@
 @attribute [Authorize]
-@using WorkoutPlanner.Components.Pages;
-@using WorkoutPlanner.Components.Pages.Plan;
 
 @if (!Initialised)
 {
@@ -13,52 +10,49 @@
         </div>
     </div>
 }
-else if (Programs.Count < 1 && Initialised)
-{
-        <WorkoutPlanEditView OnProgramChange="(()=>OnProgramChanged())" ></WorkoutPlanEditView>
-}
 else
 {
-    <div class="bg-gray-600 rounded-xl p-4 flex justify-between items-center">
-        <div>
-            <h3 class="font-semibold text-base text-text">@Program.Name</h3>
-            <h6 class="text-sm text-text">@Program.Goal.ToString()</h6>
+    <h1>
+        Bievenue {User.Name}
+    </h1>
+    <subtitle>
+        Prêt pour une nouvelle séances ?
+    </subtitle>
+    <div class="rounded-2xl bg-surface p-2 space-y-2">
+        <h3>
+            Semaine en cours
+        </h3>
+        <p>
+            {obj.CountLastWorkout} / {obj.WorkoutPhase.Count} entraînements réalisés
+        </p>
+        <div class="bg-background w-full h-2">
+            <div class="bg-(--color-primary) w-48 h-2"></div>
         </div>
-        <div class="ml-auto my-auto">
-            @* <WorkoutPlanEditView OnProgramChange="(()=>OnProgramChanged())" Program="Program"></WorkoutPlanEditView> *@
+        <button class="p-2 bg-(--color-secondary) rounded-lg">
+            <subtitle>Voir plus</subtitle>
+        </button>
+    </div>
+    <button class="p-2 bg-(--color-primary) rounded-lg">
+        <h3>Commencer l'entraînement</h3>
+    </button>
+
+    <div class ="p-4 space-y-2 grow flex flex-col">
+        <h3>Derniers entraînements</h3>
+
+        @* Boucle pour les dernier entrainement ICI *@
+        <div class="p-4 space-y-2 flex flex-row bg-surface">
+            <div class="bg-(--color-primary) w-1 h-full"></div>
+            <div class="p-4 space-y-2 grow flex flex-col">
+                <subtitle>Entrainements 1</subtitle>
+                <a class="text-caption text-subtext">{obj.TempsTotal} - {obj.PoidsTotal} kg</a>
+            </div>
+            <div class="flex">
+                <button class="text-subtext self-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
-
-    <PhaseListView Program="@Program" OnPhaseChange="(()=>OnProgramChanged())"></PhaseListView>
-
-    <button class="ml-auto mr-4" @onclick="(()=> Toggle())">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-        </svg>
-    </button>
-    <WorkoutPlanner.Components.Pages.Execution.ExecutionModal @ref="@ExecutionModal"></WorkoutPlanner.Components.Pages.Execution.ExecutionModal>
-
-    @* <div class="absolute top-0 left-0 w-full h-full bg-surface z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out @(!IsModalVisible ? "opacity-0 pointer-events-none" : "opacity-100")">
-        <div class="relative w-full h-full flex flex-col space-y-2">
-
-            <div class="bg-gray-600 rounded-xl p-4 flex justify-between items-center">
-                <div class="animate-pulse ">
-                    <div class="h-2 w-80 rounded bg-gray-200"></div>
-                    <div class="h-2 w-40 rounded bg-gray-200"></div>
-                </div>
-            </div>
-            <div class="bg-gray-600 rounded-xl p-4 flex justify-between items-center">
-                <div class="animate-pulse ">
-                    <div class="h-2 w-80 rounded bg-gray-200"></div>
-                    <div class="h-2 w-40 rounded bg-gray-200"></div>
-                </div>
-            </div>
-            <div class="bg-gray-600 rounded-xl p-4 flex justify-between items-center">
-                <div class="animate-pulse ">
-                    <div class="h-2 w-80 rounded bg-gray-200"></div>
-                    <div class="h-2 w-40 rounded bg-gray-200"></div>
-                </div>
-            </div>
-        </div>
-    </div> *@
 }

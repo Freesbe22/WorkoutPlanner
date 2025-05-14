@@ -18,19 +18,19 @@
 }
 
 @layer components {
-    .text-body {
+    .text-body, p {
         @apply text-sm/5 font-normal text-text;
     }
 
-    .text-title {
+    .text-title, h3 {
         @apply text-xl/7 font-medium text-text;
     }
 
-    .text-display {
+    .text-display, h1 {
         @apply text-[32px]/10 font-bold text-text;
     }
 
-    .text-heading {
+    .text-heading, h2 {
         @apply text-2xl/8 font-medium text-text;
     }
 
@@ -38,7 +38,7 @@
         @apply text-xs/4 font-normal text-text;
     }
 
-    .text-caption {
+    .text-subtitle, subtitle {
         @apply text-base/6 font-normal text-text;
     }
 }
