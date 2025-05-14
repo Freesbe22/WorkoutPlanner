@@ -6,7 +6,7 @@ using WorkoutPlanner.Components.Shared.SwipeArea;
 using WorkoutPlanner.Tools.Services;
 using SwipeDirection = WorkoutPlanner.Components.Shared.SwipeArea.SwipeDirection;
 
-namespace WorkoutPlanner.Components.Pages.Plan
+namespace WorkoutPlanner.Components.Pages.Workout.Plan
 {
     partial class PhaseListView : ComponentBase
     {
@@ -20,7 +20,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
         public ProgramPhase? Phase { get; set; }
         [Parameter]
         public EventCallback OnPhaseChange { get; set; }
-        public Workout? Workout { get; set; }
+        public DataObject.Workout? Workout { get; set; }
         private bool Initialised { get; set; } = false;
         private bool IsWorkoutOverview { get; set; } = false;
         #endregion
@@ -41,7 +41,7 @@ namespace WorkoutPlanner.Components.Pages.Plan
             Workout = Phase.Workouts.FirstOrDefault();
         }
 
-        protected async Task OnWorkoutSelected(Workout workout)
+        protected async Task OnWorkoutSelected(DataObject.Workout workout)
         {
             Workout = workout;
             IsWorkoutOverview = true;

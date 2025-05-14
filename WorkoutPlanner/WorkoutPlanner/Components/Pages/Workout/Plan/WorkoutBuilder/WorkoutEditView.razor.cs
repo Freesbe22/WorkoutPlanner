@@ -8,7 +8,7 @@ using WorkoutPlanner.DataObject;
 using WorkoutPlanner.DataObject.Enum;
 using WorkoutPlanner.Tools.Services;
 
-namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
+namespace WorkoutPlanner.Components.Pages.Workout.Plan.WorkoutBuilder
 {
     partial class WorkoutEditView : ComponentBase
     {
@@ -19,7 +19,7 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
         [NotNull]
         public ProgramPhase Phase { get; set; }
         [Parameter]
-        public Workout? Workout { get; set; }
+        public DataObject.Workout? Workout { get; set; }
         [Parameter]
         public EventCallback OnWorkoutChange { get; set; }
 
@@ -37,11 +37,11 @@ namespace WorkoutPlanner.Components.Pages.Plan.WorkoutBuilder
             {
                 if (Phase.Workouts is null)
                 {
-                    Phase.Workouts = new List<Workout>();
+                    Phase.Workouts = new List<DataObject.Workout>();
                 }
 
                 //Default workout
-                Workout = new Workout()
+                Workout = new DataObject.Workout()
                 {
                     Sections = new List<WorkoutSectionDetails>()
                     {

@@ -7,7 +7,7 @@ using WorkoutPlanner.DataObject;
 using WorkoutPlanner.DataObject.Enum;
 using WorkoutPlanner.Tools.Services;
 
-namespace WorkoutPlanner.Components.Pages
+namespace WorkoutPlanner.Components.Pages.Workout
 {
     partial class WorkoutPlanEditView : ComponentBase
     {

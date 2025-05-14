@@ -8,7 +8,7 @@ using WorkoutPlanner.DataObject.Enum;
 using WorkoutPlanner.Tools.Services;
 using static Google.Protobuf.Reflection.FeatureSet.Types;
 
-namespace WorkoutPlanner.Components.Pages.Plan
+namespace WorkoutPlanner.Components.Pages.Workout.Plan
 {
     partial class PhaseEditView : ComponentBase
     {

@@ -5,7 +5,7 @@ using WorkoutPlanner.Components.Pages.Execution;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.Tools.Services;
 
-namespace WorkoutPlanner.Components.Pages
+namespace WorkoutPlanner.Components.Pages.Workout
 {
     partial class WorkoutPlanDetailView : ComponentBase
     {
