@@ -23,10 +23,13 @@ namespace WorkoutPlanner.Components.Pages.Workout.Plan
         public DataObject.Workout? Workout { get; set; }
         private bool Initialised { get; set; } = false;
         private bool IsWorkoutOverview { get; set; } = false;
+        private bool ViewMore { get; set; } = false;
+        
+
         #endregion
 
         #region Loading
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync ()
         {
             await Load();
             Initialised = true;
@@ -162,6 +165,11 @@ namespace WorkoutPlanner.Components.Pages.Workout.Plan
         public void OnNavClicked(bool isWorkoutOverview)
         {
             WorkoutOverviewTogle(isWorkoutOverview);
+        }
+
+        private void ViewMoreToggle()
+        {
+            ViewMore = !ViewMore;
         }
 
         #endregion

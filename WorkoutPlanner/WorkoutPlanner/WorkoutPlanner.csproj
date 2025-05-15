@@ -78,7 +78,10 @@
 
     <ItemGroup>
       <None Include="compilerconfig.json" />
-      <None Include="wwwroot\image\bootstrap_icons\plus-circle.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Watch Remove="wwwroot\css\**" />
     </ItemGroup>
 
 	<ItemGroup>
@@ -95,8 +98,4 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemGroup>
-	
-	<Target Name="Tailwind" BeforeTargets="Compile">
-		<Exec Command="npx tailwindcss -i ./wwwroot/css/default.css -o ./wwwroot/css/app.css" />
-	</Target>
 </Project>

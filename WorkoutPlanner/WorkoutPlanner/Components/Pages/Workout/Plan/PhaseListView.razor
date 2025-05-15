@@ -11,90 +11,77 @@
 }
 else
 {
-    <div class="flex justify-around text-text-muted">
-        @if (Phase != null)
-        {
-            <div class="flex content-start space-x-4 w-full">
-                <a class="@(!IsWorkoutOverview ? "text-text border-b-2 border-(--color-text)" : "")" @onclick="(()=>OnNavClicked(false))">@Phase.Name</a>
-                <a class="@(IsWorkoutOverview ? "text-text border-b-2 border-(--color-text)" : "")" @onclick="(()=>OnNavClicked(true))">Workout overview</a>
+    <div class="max-h-104 flex flex-col">
+        <div class="flex justify-around text-text-muted">
+            @if (Phase != null)
+            {
+                <div class="flex content-start space-x-4 w-full">
+                    <a class="@(!IsWorkoutOverview ? "text-text border-b-2 border-(--color-text)" : "")"
+                       @onclick="(() => OnNavClicked(false))">@Phase.Name</a>
+                    <a class="@(IsWorkoutOverview ? "text-text border-b-2 border-(--color-text)" : "")"
+                       @onclick="(() => OnNavClicked(true))">Workout overview</a>
 
-            </div>
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg " viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                </svg>
-            </button>
-        }
-        else
-        {
-            <a class="text-text border-b-2 border-(--color-text)">No active phase</a>
-            <button class="ml-auto mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                </svg>
-            </button>
-        }
-
-        @* <div class="col-12 px-0">
-            <div class="collapse" id="collapsePhases">
-                <div class="list-group rounded-top-0">
-                    @foreach (var phase in Program.Phases)
-                    {
-                        @if (Phase != null)
-                        {
-                            <div class="list-group-item d-flex @(string.Equals(phase.Id, Phase.Id)? "bg-primary-subtle" : "")" @onclick="(()=>SelectPhase(phase))">
-                                <div class=" d-flex flex-column">
-                                    <h3 class="text-wrap text-body">@phase.Name</h3>
-
-                                    <p class="text-body-secondary">@phase.Cycle week(s)</p>
-                                </div>
-                                <div class="ms-auto my-auto">
-
-                                    <PhaseEditView Program="Program" Phase=phase OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="list-group-item d-flex" @onclick="(()=>SelectPhase(phase))">
-                                <div class=" d-flex flex-column">
-                                    <h3 class="text-wrap text-body">@phase.Name</h3>
-
-                                    <p class="text-body-secondary">@phase.Cycle week(s)</p>
-                                </div>
-                                <div class="ms-auto my-auto">
-
-                                    <PhaseEditView Program="Program" Phase=phase OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
-                                </div>
-                            </div>
-                        }
-                    }
-                    <div class="list-group-item">
-                        <PhaseEditView Program="Program" OnPhaseChange="(()=>OnPhaseChanged())"></PhaseEditView>
-                    </div>
                 </div>
-            </div>
-        </div> *@
-    </div>
-    @* Version de base *@
-    @* <div class="row">
-        <div class="col-12 px-0">
-            @if (Phase != null && !IsWorkoutOverview)
-            {
-                <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
+                <button @onclick="@ViewMoreToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg "
+                         viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                    </svg>
+                </button>
             }
-            else if (IsWorkoutOverview)
+            else
             {
-                <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
+                <a class="text-text border-b-2 border-(--color-text)">No active phase</a>
+                <button class="ml-auto mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg"
+                         viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                    </svg>
+                </button>
             }
+
         </div>
-    </div> *@
+        <div class="@(ViewMore ? "max-h-96 p-2 overflow-auto border-b-4 " : "max-h-0 overflow-hidden") flex flex-col space-y-2 transition-all duration-300 ease-in-out border-x-4 border-(--color-border) rounded-b-lg">
+
+            @foreach (var phase in Program.Phases)
+            {
+                @if (Phase != null)
+                {
+                    <div class="px-2 py-4 @((Phase.Id == phase.Id) ? "bg-(--color-substext)" : "") flex flex-row border-b-2 border-(--color-border)"
+                         @onclick="(()=>SelectPhase(phase))">
+                        <div class="flex flex-col grow">
+                            <h3>@phase.Name</h3>
+                            <p class="text-text-muted">@phase.Cycle cycle(s)</p>
+                        </div>
+                        <PhaseEditView Program=Program Phase=phase OnPhaseChange="(() => OnPhaseChanged())"></PhaseEditView>
+                    </div>
+                }
+                else
+                {
+                    <div class="px-2 py-4 flex flex-row border-b-2 border-(--color-border)" @onclick="(()=>SelectPhase(phase))">
+                        <div class="flex flex-col">
+                            <h3>@phase.Name</h3>
+                            <p class="text-text-muted">@phase.Cycle cycle(s)</p>
+                        </div>
+                        <PhaseEditView Program=Program Phase=phase OnPhaseChange="(() => OnPhaseChanged())"></PhaseEditView>
+                    </div>
+                }
+            }
+            <div class="px-2 py-4 flex flex-row">
+                <PhaseEditView Program=Program OnPhaseChange="(() => OnPhaseChanged())"></PhaseEditView>
+            </div>
+        </div>
+    </div>
+
     <MudSwipeArea OnSwipeEnd="@OnSwipeEnd" Class="w-full grow">
         <div class="@(IsWorkoutOverview ? "hidden" : "")">
-            <WorkoutListView Phase="@Phase" OnWorkoutChange="(()=> OnPhaseChanged())" OnWorkoutSelected="((workout)=> OnWorkoutSelected(workout))"></WorkoutListView>
+            <WorkoutListView Phase="@Phase" OnWorkoutChange="(() => OnPhaseChanged())"
+                             OnWorkoutSelected="((workout) => OnWorkoutSelected(workout))"></WorkoutListView>
         </div>
         <div class="@(!IsWorkoutOverview ? "hidden" : "")">
-            <WorkoutOverviewView OnWorkoutChange="(()=> OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
+            <WorkoutOverviewView OnWorkoutChange="(() => OnPhaseChanged())" Workout="Workout"></WorkoutOverviewView>
         </div>
     </MudSwipeArea>
 }

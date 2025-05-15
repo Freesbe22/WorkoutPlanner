@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
+
+using WorkoutPlanner.Components.Shared.EditModal;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.DataObject.Enum;
 using WorkoutPlanner.Tools.Services;
@@ -25,7 +27,7 @@ namespace WorkoutPlanner.Components.Pages.Workout.Plan
 
         private bool Initialised { get; set; } = false;
         private bool IsEdit { get; set; } = true;
-        private Modal ModalPhase { get; set; }= new Modal();
+        private EditModal ModalPhase { get; set; }= new EditModal();
         private IEnumerable<SelectedItem> ScheduleTypes { get; set; }
         #endregion
 
@@ -70,12 +72,12 @@ namespace WorkoutPlanner.Components.Pages.Workout.Plan
                 Program.Phases.Add(Phase);
             }
             await FirestoreService.UpdateObjectReference(FirestoreService.db.Collection(typeof(WorkoutPlan).Name).Document(Program.Id),Program);
-            ModalPhase.Close();
+            ModalPhase.Toggle();
             OnPhaseChange.InvokeAsync();
         }
         private async Task OnCancel()
         {
-            ModalPhase.Close();
+            ModalPhase.Toggle();
             await Task.Delay(1);
         }
         #endregion
