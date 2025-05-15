@@ -1,40 +1,53 @@
-﻿@* @attribute [Authorize]
-@if (!Initialised)
+﻿@if (!Initialised)
 {
-    <Button IsOutline=true Color="Color.Secondary" IsDisabled=true><i class="bi bi-plus-circle"></i> Add a program</Button>
+    <button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+        </svg>
+        Add a program
+    </button>
 }
 else
 {
     @if (IsEdit)
     {
-            <Button OnClick="@ToggleModal" Color="Color.None" Icon="bi bi-pencil" ButtonStyle="ButtonStyle.None" Size="Size.Medium"></Button>
+        <button @onclick="@ToggleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-three-dots fill-(--color-text)" viewBox="0 0 16 16">
+                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+            </svg>
+        </button>
     }
     else
     {
-        <Button OnClick="@ToggleModal" Color="Color.None" ButtonStyle="ButtonStyle.None" Size="Size.ExtraExtraLarge" class="fs-3 text-primary-emphasis"><i class="bi bi-plus-circle"></i> Add a program</Button>
+        <button @onclick="@ToggleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+            </svg>
+            Ajouter un programme
+        </button>
     }
 
-    <Modal @ref="ModalPlan">
-        <ModalDialog ShowFooter=false ShowHeader=false>
-            <BodyTemplate>
-                <ValidateForm Model="Program" OnValidSubmit="OnValidSubmit" DisableAutoSubmitFormByEnter="true" >
-                    <div class="row">
-                        <div class="col-12">
-                            <BootstrapInput @bind-Value="@Program.Name" />
-                        </div>
-                        <div class="col-12">
-                            <Select Items="Goals" OnSelectedItemChanged="OnGoalTypeChanged" @bind-Value="Program.Goal"></Select>
-                        </div>
-                        <div class="col-12">
-                            <Textarea PlaceHolder="Please enter ..." rows="4" @bind-Value="Program.Description" />
-                        </div>
-                        <div class="col-12">
-                            <Button ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.None" Color="Color.Secondary" Text="Cancel" OnClick="OnCancel"></Button>
-                            <Button ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.None" Color="Color.Primary" Text="Submit" IsAsync="true"></Button>
-                        </div>
-                    </div>
-                </ValidateForm>
-            </BodyTemplate>
-        </ModalDialog>
-    </Modal>
-} *@
+    <EditModal @ref="ModalPlan" Model="@Program">
+        <div class="flex flex-col py-2 space-y-2">
+            <InputText @bind-Value=Program.Name id="name" class="bg-surface rounded-sm border border-(--color-subtext) px-2 text-title mx-2 text-center" />
+        </div>
+        <div class="flex flex-col py-2 space-y-2">
+            <label for="goal" class="text-subtitle">Objectif</label>
+            <div class="flex flex-row overflow-x-auto space-x-2">
+            <InputRadioGroup @bind-Value=Program.Goal id="goal">
+                @foreach (var goal in (WorkoutPlanGoal[])Enum.GetValues(typeof(WorkoutPlanGoal)))
+                {
+                    <label class ="@((Program.Goal==goal) ? "bg-secondary":"bg-primary") p-2 rounded-sm text-text">
+                    <InputRadio Value="goal" class="hidden" />
+                        <subtitle>@goal</subtitle>
+                    </label>
+                }
+                </InputRadioGroup>
+            </div>
+        </div>
+        <div class="flex flex-col py-2 space-y-2">
+            <label for="description" class="text-subtitle">Description</label>
+            <InputTextArea @bind-Value=Program.Description id="description" class="bg-surface grow rounded-sm border border-(--color-subtext) px-2 text-body mx-2  h-[50vh] min-h-22 max-h-56 resize-none" />
+        </div>
+    </EditModal>
+}

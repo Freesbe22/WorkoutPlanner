@@ -3,6 +3,8 @@ using Firebase.Auth;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Diagnostics.CodeAnalysis;
+
+using WorkoutPlanner.Components.Shared.EditModal;
 using WorkoutPlanner.DataObject;
 using WorkoutPlanner.DataObject.Enum;
 using WorkoutPlanner.Tools.Services;
@@ -23,7 +25,7 @@ namespace WorkoutPlanner.Components.Pages.Workout
 
         private bool Initialised { get; set; } = false;
         private bool IsEdit { get; set; } = false;
-        private Modal ModalPlan { get; set; }= new Modal();
+        private EditModal ModalPlan { get; set; }= new EditModal();
         private IEnumerable<SelectedItem> Goals { get; set; } = new List<SelectedItem>()
             {
                 new SelectedItem(WorkoutPlanGoal.Maintenance.ToString(), "Maintenance"),
@@ -74,12 +76,12 @@ namespace WorkoutPlanner.Components.Pages.Workout
             {
                 await FirestoreService.db.Collection(typeof(WorkoutPlan).Name).AddAsync(Program);
             }
-            await ModalPlan.Close();
+            ModalPlan.Toggle();
             await OnProgramChange.InvokeAsync();
         }
         private async Task OnCancel()
         {
-            await ModalPlan.Close();
+            ModalPlan.Toggle();
             await Task.Delay(1);
         }
         #endregion
