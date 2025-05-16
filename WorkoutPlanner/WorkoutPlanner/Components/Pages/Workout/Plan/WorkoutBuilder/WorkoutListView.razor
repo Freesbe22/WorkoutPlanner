@@ -1,53 +1,49 @@
 ﻿@if (!Initialised)
 {
-        <div class="flex items-center justify-around animate-pulse mt-2">
+    <div class="flex items-center justify-around animate-pulse mt-2">
+        <div class="h-2 w-40 rounded bg-gray-200"></div>
+        <div class="h-2 w-40 rounded bg-gray-200"></div>
+        <div class="h-2 w-8 rounded bg-gray-200"></div>
+    </div>
+    <div class="bg-surface rounded-md p-4 flex justify-between items-center">
+        <div class="animate-pulse space-y-2">
+            <div class="h-2 w-80 rounded bg-gray-200"></div>
             <div class="h-2 w-40 rounded bg-gray-200"></div>
-            <div class="h-2 w-40 rounded bg-gray-200"></div>
-            <div class="h-2 w-8 rounded bg-gray-200"></div>
         </div>
-        <div class="bg-surface rounded-md p-4 flex justify-between items-center">
-            <div class="animate-pulse space-y-2">
-                <div class="h-2 w-80 rounded bg-gray-200"></div>
-                <div class="h-2 w-40 rounded bg-gray-200"></div>
-            </div>
-        </div>
+    </div>
 }
 else
 {
-        <div class="space-y-2 flex flex-col">
+    <div class="space-y-2 my-2 flex flex-col">
 
         @if (Phase.Workouts != null)
         {
             @foreach (var workout in Phase.Workouts)
             {
-                            <div class="rounded-md bg-surface px-4 py-6 flex flex-row space-x-4 text-text" @onclick="(()=> OnWorkoutClick(workout))">
-                                <span class="w-2 bg-secondary"></span>
-                                <span class="my-auto w-12 h-12 bg-primary"></span>
-                                <div class="grow flex flex-col">
-                                    <h5 class="text-base">@workout.Name</h5>
-                                    <div class="text-text-muted text-xs">
+                <div class="rounded-lg bg-surface py-4 flex flex-row space-x-4 text-text" @onclick="(()=> OnWorkoutClick(workout))">
+                    <span class="w-2 bg-secondary"></span>
+                    <span class="my-auto w-12 h-12 bg-(--color-text-muted)"></span>
+                    <div class="grow flex flex-col">
+                        <h5 class="text-base">@workout.Name</h5>
+                        <div class="text-text-muted text-xs">
                             @if (workout.Sections != null)
                             {
-                                                <p class="card-text">@workout.Sections.Count() exercises</p>
+                                <p class="card-text">@workout.Sections.Count() exercises</p>
                             }
                             @* <WorkoutEditView Phase="@Phase" OnWorkoutChange="(()=>OnWorkoutChanged())" Workout="workout"></WorkoutEditView> *@
-                                    </div>
-                                </div>
-                                <div class="flex flex-col -my-4">
-                                    <div class="w-max">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
-                                        </svg>
-                                    </div>
-                                    <div class="grow flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col -my-2 mr-2">
+                            <WorkoutEditView OnWorkoutChange="(()=>OnWorkoutChanged())" Workout=workout Phase=Phase></WorkoutEditView>
+                        <div class="grow flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             }
         }
-                    <WorkoutEditView Phase="@Phase" OnWorkoutChange="(()=>OnWorkoutChanged())"></WorkoutEditView>
-        </div>
+        <WorkoutEditView Phase="@Phase" OnWorkoutChange="(()=>OnWorkoutChanged())"></WorkoutEditView>
+    </div>
 }
