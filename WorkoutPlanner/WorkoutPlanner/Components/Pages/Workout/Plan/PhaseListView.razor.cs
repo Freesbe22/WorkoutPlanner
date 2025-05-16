@@ -31,6 +31,7 @@ namespace WorkoutPlanner.Components.Pages.Workout.Plan
         #region Loading
         protected override async Task OnInitializedAsync ()
         {
+            Phase = new ProgramPhase();
             await Load();
             Initialised = true;
 
