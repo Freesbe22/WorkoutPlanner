@@ -18,7 +18,7 @@ namespace WorkoutPlanner.Components.Pages
             //InvokeAsync(() => { StateHasChanged(); });
 #endif
             await Task.Delay(3000);
-            NavManager.NavigateTo("/accountcreate", replace: true);
+            NavManager.NavigateTo("/welcome", replace: true);
         }
     }
 }

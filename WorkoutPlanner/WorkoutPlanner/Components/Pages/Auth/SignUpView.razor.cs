@@ -60,7 +60,7 @@ namespace WorkoutPlanner.Components.Pages.Auth
             if (AuthClient.User != null)
             {
                 AuthStateProvider.ManageUser();
-                NavManager.NavigateTo("/workout",replace:true);
+                NavManager.NavigateTo("/accountcreate");
             }
         }
 
