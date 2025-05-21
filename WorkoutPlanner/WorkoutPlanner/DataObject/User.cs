@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,10 @@ namespace WorkoutPlanner.DataObject
     {
         [FirestoreDocumentId]
         public string Id { get; set; } // Firebase UID
+        [FirestoreDocumentId]
+        public string AuthId { get; set; } // Firebase Auth UID
         [FirestoreProperty]
+        [Required]
         public string Name { get; set; }
         [FirestoreProperty]
         public int Age { get; set; }

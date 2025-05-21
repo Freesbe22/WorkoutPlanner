@@ -1,0 +1,38 @@
+﻿@page "/accountcreate"
+@layout WorkoutPlanner.Components.Layout.LoginLayout
+
+<EditForm EditContext="@_editContext" OnValidSubmit="@Register" class="form_container">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="title_container">
+        <p class="title">Information personnelle</p>
+    </div>
+    <div class="input_container">
+        <label for="name_field" class="input_label">Prénom</label>
+
+        <InputText @bind-Value="User.Name" class="input_field" id="name_field" />
+    </div>
+    <div class="input_container">
+        <label class="input_label" for="age_field">Age</label>
+
+        <InputNumber @bind-Value="User.Age" class="input_field" id="age_field" />
+    </div>
+    <div class="input_container">
+        <label class="input_label" for="height_field">Taille (cm)</label>
+
+        <InputNumber @bind-Value="User.Height" class="input_field" id="height_field" />
+    </div>
+    <div class="input_container">
+        <label class="input_label" for="weight_field">Poids</label>
+
+        <InputNumber @bind-Value="User.Weight" class="input_field" id="weight_field" />
+    </div>
+
+    <button type="submit" class="sign-in_btn">
+        <span>Valider</span>
+    </button>
+    <div class="separator">
+        <hr class="line">
+    </div>
+
+</EditForm>
